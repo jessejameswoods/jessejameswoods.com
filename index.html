@@ -376,7 +376,7 @@ footer a:hover{opacity:1}
   <p style="max-width:600px;font-size:1.05rem;margin-bottom:.5rem">Whether it's a speaking engagement, consulting project, or just to say hello — I'd love to hear from you.</p>
   <p style="margin-bottom:2rem"><a href="https://www.linkedin.com/in/jessejameswoods/" target="_blank">Find me on LinkedIn →</a></p>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start" class="contact-grid">
-    <form class="contact-form" action="https://formspree.io/jjwoods3@gmail.com" method="POST">
+    <form class="contact-form" onsubmit="event.preventDefault(); var n=this.querySelector("[placeholder=\"Your name\"]").value; var e=this.querySelector("[placeholder=\"you@example.com\"]").value; var s=this.querySelector("[placeholder=\"What's this about?\"]").value; var m=this.querySelector("textarea").value; window.location.href="mailto:jjwoods3@gmail.com?subject="+encodeURIComponent(s)+"&body="+encodeURIComponent("From: "+n+" ("+e+")\n\n"+m);">
       <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" required></div>
       <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" required></div>
       <div class="form-group"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
