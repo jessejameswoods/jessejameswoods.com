@@ -463,7 +463,9 @@ document.querySelectorAll('.stamp[href^="#tl-"]').forEach(s=>{
     document.querySelectorAll('.tl-item.highlight').forEach(el=>{el.classList.remove('highlight','highlight-fade')});
     target.classList.add('highlight');
     const y=target.getBoundingClientRect().top+window.scrollY-(window.innerHeight/2);
-    window.scrollTo({top:Math.max(0,y)});
+    document.documentElement.style.scrollBehavior='auto';
+    window.scrollTo({top:Math.max(0,y),behavior:'instant'});
+    document.documentElement.style.scrollBehavior='';
     setTimeout(()=>{target.classList.add('highlight-fade')},1500);
     setTimeout(()=>{target.classList.remove('highlight','highlight-fade')},2200);
     document.querySelector('.nav-links')?.classList.remove('open');
