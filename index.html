@@ -444,6 +444,7 @@ reveals.forEach(r=>obs.observe(r));
 // Smooth scroll for nav links
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
+    if(a.classList.contains('stamp'))return;
     e.preventDefault();
     const t=document.querySelector(a.getAttribute('href'));
     if(t)t.scrollIntoView({behavior:'smooth'});
@@ -454,16 +455,15 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 // Stamp → timeline highlight
 document.querySelectorAll('.stamp[href^="#tl-"]').forEach(s=>{
   s.addEventListener('click',e=>{
-    e.stopImmediatePropagation();
     e.preventDefault();
     const target=document.querySelector(s.getAttribute('href'));
     if(!target)return;
-    // Ensure reveal parents are visible before scrolling
     const reveal=target.closest('.reveal');
     if(reveal)reveal.classList.add('visible');
-    target.scrollIntoView({behavior:'smooth',block:'center'});
     document.querySelectorAll('.tl-item.highlight').forEach(el=>{el.classList.remove('highlight','highlight-fade')});
     target.classList.add('highlight');
+    const y=target.getBoundingClientRect().top+window.scrollY-(window.innerHeight/2);
+    window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
     setTimeout(()=>{target.classList.add('highlight-fade')},1500);
     setTimeout(()=>{target.classList.remove('highlight','highlight-fade')},2200);
     document.querySelector('.nav-links')?.classList.remove('open');
