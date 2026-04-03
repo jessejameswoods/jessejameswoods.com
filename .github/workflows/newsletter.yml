@@ -1,0 +1,81 @@
+name: Travel SEO Pulse — Daily Publish
+
+on:
+  schedule:
+    # 6:00 AM Berlin time (CEST = UTC+2, CET = UTC+1)
+    # Using 4:00 UTC to hit ~6am CEST (summer) / 5am CET (winter)
+    - cron: '0 4 * * 1-5'  # Monday–Friday
+  workflow_dispatch: {}  # Manual trigger button in GitHub UI
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: travel-seo-pulse
+
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      SUBSTACK_COOKIE: ${{ secrets.SUBSTACK_COOKIE }}
+      SUBSTACK_USER_ID: ${{ secrets.SUBSTACK_USER_ID }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: travel-seo-pulse/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Validate secrets are set
+        run: |
+          missing=""
+          [ -z "$ANTHROPIC_API_KEY" ] && missing="$missing ANTHROPIC_API_KEY"
+          [ -z "$SUBSTACK_COOKIE" ] && missing="$missing SUBSTACK_COOKIE"
+          [ -z "$SUBSTACK_USER_ID" ] && missing="$missing SUBSTACK_USER_ID"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing GitHub Secrets:$missing"
+            exit 1
+          fi
+          echo "All secrets present."
+
+      - name: Run newsletter pipeline
+        id: publish
+        run: python main.py 2>&1 | tee run.log
+
+      - name: Upload log as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newsletter-log-${{ github.run_id }}
+          path: travel-seo-pulse/run.log
+          retention-days: 14
+
+      - name: Upload generated newsletter
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newsletter-output-${{ github.run_id }}
+          path: travel-seo-pulse/output/
+          retention-days: 30
+
+      - name: Alert on failure
+        if: failure()
+        run: |
+          echo "::error::Newsletter publish FAILED. Check the run log artifact for details."
+          echo ""
+          echo "Common causes:"
+          echo "  1. Substack cookie expired → refresh SUBSTACK_COOKIE secret"
+          echo "  2. Anthropic API error → check API key / billing"
+          echo "  3. RSS feeds all down → transient, will self-heal"
+          echo ""
+          echo "Last 20 lines of log:"
+          tail -20 run.log || true
