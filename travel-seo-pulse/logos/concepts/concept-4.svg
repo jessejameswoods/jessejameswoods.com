@@ -1,0 +1,38 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .badge-bg { fill: #C2532E; }
+      .letterforms { fill: #FAF7F2; }
+    </style>
+  </defs>
+
+  <!-- Rounded square badge background -->
+  <g id="badge">
+    <rect x="56" y="56" width="400" height="400" rx="88" ry="88" class="badge-bg"/>
+  </g>
+
+  <!-- Letterforms: J and W -->
+  <g id="letterforms">
+    <!-- J -->
+    <g>
+      <!-- Top serif-like horizontal bar -->
+      <rect x="130" y="160" width="90" height="38" rx="12" ry="12" class="letterforms"/>
+      <!-- Vertical stem -->
+      <rect x="180" y="180" width="40" height="160" rx="12" ry="12" class="letterforms"/>
+      <!-- Bottom hook curve -->
+      <path d="M 180 340 Q 140 340 130 310 Q 120 280 140 270 L 160 285 Q 150 295 165 300 Q 180 305 180 330 Z" class="letterforms"/>
+    </g>
+
+    <!-- W -->
+    <g>
+      <!-- Left descender -->
+      <polygon points="250,160 290,330 310,330 280,160" class="letterforms"/>
+      <!-- Center valley with arrow peak (travel direction) -->
+      <polygon points="285,220 310,100 335,220" class="letterforms"/>
+      <!-- Right valley -->
+      <polygon points="335,220 360,160 400,330 380,330" class="letterforms"/>
+      <!-- Far right descender -->
+      <polygon points="395,160 435,330 455,330 415,160" class="letterforms"/>
+    </g>
+  </g>
+</svg>

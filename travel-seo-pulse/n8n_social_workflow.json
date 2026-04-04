@@ -1,0 +1,148 @@
+{
+  "name": "Travel SEO Pulse - Social Auto-Post",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 15,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "feedUrl": "https://jessejameswoods.substack.com/feed"
+      },
+      "id": "rss-trigger",
+      "name": "Check Substack RSS",
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1024, messages: [{ role: 'user', content: `You are ghostwriting social media posts for Jesse James Woods, VP of SEO & Localization at KAYAK. He publishes Travel SEO Pulse, a daily briefing on travel, search, and AI.\n\nJesse's voice: Direct, practitioner-level, no fluff. He talks like someone who's actually done the work - not a thought leader who regurgitates takes. Short punchy sentences. Occasional dry humor. Never uses em dashes (use hyphens). Never uses hashtags unless they're genuinely relevant. Never sounds like a LinkedIn influencer.\n\nHere is today's newsletter:\n\nTitle: ${$json.title}\n\nContent:\n${$json.contentSnippet ? $json.contentSnippet.substring(0, 3000) : $json.content ? $json.content.substring(0, 3000) : 'No content available'}\n\nGenerate TWO posts:\n\n1. X POST (max 270 chars): A sharp, specific teaser that names 1-2 concrete stories from today's issue. End with the link. No hashtags unless genuinely useful. Sound like a human, not a bot.\n\n2. LINKEDIN POST (max 600 chars): Slightly longer, still punchy. Lead with the most interesting story or insight from today's issue. Add a brief \"why this matters\" angle. End with the link.\n\nFormat your response as JSON:\n{\"x_post\": \"...\", \"linkedin_post\": \"...\"}\n\nIMPORTANT: Use regular hyphens (-) never em dashes. No emojis. No \"here's why\" or \"let's talk about\" or any LinkedIn-bro phrases. Write like Jesse would actually talk.` }] }) }}"
+      },
+      "id": "claude-api",
+      "name": "Generate Social Posts (Claude)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Anthropic API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse Claude's response to extract the X and LinkedIn posts\nconst response = $input.first().json;\nconst content = response.content[0].text;\n\n// Try to extract JSON from Claude's response\nlet parsed;\ntry {\n  // Handle case where Claude wraps JSON in markdown code blocks\n  const jsonMatch = content.match(/\\{[\\s\\S]*\\}/);\n  if (jsonMatch) {\n    parsed = JSON.parse(jsonMatch[0]);\n  } else {\n    parsed = JSON.parse(content);\n  }\n} catch (e) {\n  // Fallback: use the raw text\n  parsed = {\n    x_post: content.substring(0, 270),\n    linkedin_post: content.substring(0, 600)\n  };\n}\n\nreturn [{\n  json: {\n    x_post: parsed.x_post,\n    linkedin_post: parsed.linkedin_post,\n    newsletter_url: $('Check Substack RSS').first().json.link,\n    newsletter_title: $('Check Substack RSS').first().json.title\n  }\n}];"
+      },
+      "id": "parse-response",
+      "name": "Parse Claude Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 300]
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.x_post }}",
+        "additionalFields": {}
+      },
+      "id": "post-to-x",
+      "name": "Post to X",
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [960, 200],
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "",
+          "name": "X (Twitter) account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.linkedin_post }}",
+        "additionalFields": {}
+      },
+      "id": "post-to-linkedin",
+      "name": "Post to LinkedIn",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [960, 400],
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "",
+          "name": "LinkedIn account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Check Substack RSS": {
+      "main": [
+        [
+          {
+            "node": "Generate Social Posts (Claude)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Social Posts (Claude)": {
+      "main": [
+        [
+          {
+            "node": "Parse Claude Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Claude Response": {
+      "main": [
+        [
+          {
+            "node": "Post to X",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Post to LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": []
+}

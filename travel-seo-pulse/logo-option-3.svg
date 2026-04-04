@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- OPTION 3: Terracotta Circle Badge with JW Initials
+       Concept: Solid terracotta circle with cream "JW" knocked out.
+       The W's right stroke extends into a subtle upward arrow/wing.
+       App-icon energy. Maximum contrast and readability at small sizes.
+       Think: if Morning Brew's coffee cup were a monogram instead. -->
+
+  <!-- Terracotta circle -->
+  <circle cx="256" cy="256" r="246" fill="#C2532E"/>
+
+  <g transform="translate(88, 130)">
+    <!-- J in cream - bold, clean -->
+    <rect x="0" y="0" width="30" height="24" rx="2" fill="#FAF7F2"/>
+    <rect x="10" y="0" width="30" height="165" rx="2" fill="#FAF7F2"/>
+    <path d="M40,165 C40,198 30,215 12,215 C-6,215 -12,203 -12,190"
+          fill="none" stroke="#FAF7F2" stroke-width="28" stroke-linecap="round"/>
+
+    <!-- W in cream - bold, with right stroke extending into upward wing -->
+    <polygon points="85,0 108,180 134,72 160,180 183,0 215,0 172,220 124,220 108,125 92,220 40,220 85,0"
+             fill="#FAF7F2"/>
+
+    <!-- Wing extension from W's right peak -->
+    <polygon points="215,0 240,-20 260,-28 248,-12 228,4" fill="#FAF7F2" opacity="0.85"/>
+
+    <!-- Small contrail dots -->
+    <circle cx="268" cy="-32" r="3" fill="#FAF7F2" opacity="0.5"/>
+    <circle cx="278" cy="-38" r="2.2" fill="#FAF7F2" opacity="0.35"/>
+    <circle cx="286" cy="-43" r="1.5" fill="#FAF7F2" opacity="0.2"/>
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="knockout-mask">
+      <!-- White background (will be visible) -->
+      <rect width="512" height="512" fill="white"/>
+      <!-- Black shapes (will be hidden/knocked out) -->
+      <g fill="black">
+        <!-- J letterform -->
+        <path d="M 140 180 L 200 180 L 200 340 Q 200 380 160 380 Q 120 380 120 340 L 120 340 Q 120 355 135 355 Q 160 355 160 340 L 160 200 L 140 200 Z"/>
+
+        <!-- W letterform with right stroke extending upward (wing) -->
+        <!-- W left peak -->
+        <path d="M 240 180 L 280 320 L 310 240 L 340 320 L 380 180 L 360 180 L 330 280 L 310 200 L 290 280 L 260 180 Z"/>
+
+        <!-- Wing extension: rightmost stroke of W angled upward -->
+        <path d="M 360 180 L 380 180 L 385 140 L 365 140 Z"/>
+      </g>
+    </mask>
+  </defs>
+
+  <!-- Background circle with knockout mask applied -->
+  <g id="background">
+    <circle cx="256" cy="256" r="236" fill="#C2532E" mask="url(#knockout-mask)"/>
+  </g>
+
+  <!-- Letter shapes drawn in white for clarity at all sizes -->
+  <g id="letterforms" fill="white">
+    <!-- J letterform -->
+    <path d="M 140 180 L 200 180 L 200 340 Q 200 380 160 380 Q 120 380 120 340 L 120 340 Q 120 355 135 355 Q 160 355 160 340 L 160 200 L 140 200 Z"/>
+
+    <!-- W letterform -->
+    <path d="M 240 180 L 280 320 L 310 240 L 340 320 L 380 180 L 360 180 L 330 280 L 310 200 L 290 280 L 260 180 Z"/>
+
+    <!-- Wing extension on W -->
+    <path d="M 360 180 L 380 180 L 385 140 L 365 140 Z"/>
+  </g>
+</svg>

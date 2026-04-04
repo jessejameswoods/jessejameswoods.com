@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2C1810"/>
+      <stop offset="100%" style="stop-color:#1a0f0a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="246" fill="url(#bg)"/>
+
+  <!-- Pulse/heartbeat line - the "Pulse" in Travel SEO Pulse -->
+  <polyline
+    points="60,280 130,280 160,280 185,200 210,340 240,180 270,320 295,240 320,280 350,280 452,280"
+    fill="none"
+    stroke="#C2532E"
+    stroke-width="14"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+  <!-- Small airplane silhouette riding the pulse line -->
+  <g transform="translate(420, 258) rotate(-15)">
+    <path d="M0,0 L-18,-6 L-40,0 L-18,6 Z" fill="#FAF7F2"/>
+    <path d="M-28,-2 L-28,-16 L-34,-14 L-34,0 Z" fill="#FAF7F2"/>
+    <path d="M-28,2 L-28,16 L-34,14 L-34,0 Z" fill="#FAF7F2"/>
+    <path d="M-8,-1 L-8,-8 L-12,-7 L-12,0 Z" fill="#FAF7F2"/>
+    <path d="M-8,1 L-8,8 L-12,7 L-12,0 Z" fill="#FAF7F2"/>
+  </g>
+
+  <!-- Magnifying glass (SEO) integrated subtly top-left -->
+  <circle cx="145" cy="150" r="32" fill="none" stroke="#FAF7F2" stroke-width="7" opacity="0.3"/>
+  <line x1="168" y1="173" x2="190" y2="195" stroke="#FAF7F2" stroke-width="7" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Text: TSP initials below pulse -->
+  <text x="256" y="410" font-family="Georgia, serif" font-size="64" font-weight="bold" fill="#FAF7F2" text-anchor="middle" letter-spacing="12">TSP</text>
+</svg>

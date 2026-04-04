@@ -1,0 +1,61 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Travel SEO Pulse: JW Geometric Monogram -->
+  <!-- Professional ligature letterforms with integrated flight element -->
+  <!-- Terracotta #C2532E on transparent background -->
+
+  <style>
+    .mark { fill: #C2532E; }
+  </style>
+
+  <!-- Centered monogram in viewBox -->
+  <g id="jw-monogram" transform="translate(150, 150)">
+
+    <!-- ===== LETTER J ===== -->
+    <!-- Vertical stem with structured foot -->
+    <g id="letter-j">
+      <!-- Main vertical stem (8px thick for legibility at 32px) -->
+      <rect x="0" y="0" width="52" height="220" class="mark"/>
+
+      <!-- Foot curve: connects to W seamlessly -->
+      <path d="M 0 220 L 0 280 Q 0 310 -30 310 Q -52 310 -52 280 L 0 280 Z"
+            class="mark" fill-rule="evenodd"/>
+
+      <!-- Right angle of foot connecting to W -->
+      <rect x="0" y="260" width="70" height="52" class="mark"/>
+    </g>
+
+    <!-- ===== LETTER W ===== -->
+    <!-- Five-stroke geometric W with proportional spacing -->
+    <g id="letter-w">
+
+      <!-- Stroke 1: Left downstroke (angled) -->
+      <polygon points="70,0 105,0 140,310 105,310" class="mark"/>
+
+      <!-- Stroke 2: Left valley upstroke (angled inward) -->
+      <polygon points="120,310 155,310 155,60 120,0" class="mark"/>
+
+      <!-- Stroke 3: Center downstroke (sharp peak) -->
+      <polygon points="140,0 175,0 140,310 105,310" class="mark"/>
+
+      <!-- Stroke 4: Right valley upstroke -->
+      <polygon points="155,310 190,310 190,60 155,0" class="mark"/>
+
+      <!-- Stroke 5: Right downstroke (bold, extends upward) -->
+      <polygon points="170,0 205,0 240,310 205,310" class="mark"/>
+
+    </g>
+
+    <!-- ===== FLIGHT ELEMENT ===== -->
+    <!-- Right stroke of W extends upward with angle suggesting plane ascent -->
+    <g id="flight-ascender">
+      <!-- Angular upward extension from top-right of W -->
+      <polygon points="205,0 240,0 310,-130 280,-130" class="mark"/>
+
+      <!-- Subtle accent line suggesting contrail -->
+      <rect x="290" y="-160" width="15" height="180"
+            transform="rotate(-20 297.5 -70)" class="mark"/>
+    </g>
+
+  </g>
+
+</svg>

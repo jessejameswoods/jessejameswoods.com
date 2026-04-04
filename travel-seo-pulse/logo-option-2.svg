@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- OPTION 2: Stacked JW with Flight Path
+       Concept: A bold, compact "JW" mark (the two J's implied by the name,
+       W for Woods). The crossbar of a stylized compass/arrow cuts through,
+       doubling as a flight path. Terracotta on cream circle.
+       Reads clearly at 40px. -->
+
+  <circle cx="256" cy="256" r="246" fill="#FAF7F2"/>
+
+  <g transform="translate(112, 120)">
+    <!-- J letterform - bold geometric -->
+    <rect x="0" y="0" width="32" height="28" rx="2" fill="#C2532E"/>
+    <rect x="12" y="0" width="32" height="175" rx="2" fill="#C2532E"/>
+    <path d="M44,175 C44,210 32,228 12,228 C-8,228 -14,215 -14,200"
+          fill="none" stroke="#C2532E" stroke-width="30" stroke-linecap="round"/>
+
+    <!-- W letterform - bold geometric, tighter -->
+    <polygon points="90,0 112,195 138,80 164,195 186,0 218,0 176,230 128,230 112,130 96,230 44,230 90,0"
+             fill="#C2532E"/>
+
+    <!-- Flight path: a clean dashed arc sweeping from bottom-left to top-right -->
+    <path d="M-30,260 C40,240 140,180 240,60 C260,32 275,15 290,5"
+          fill="none" stroke="#C2532E" stroke-width="3.5" stroke-linecap="round"
+          stroke-dasharray="12,8" opacity="0.45"/>
+
+    <!-- Tiny geometric arrow/plane at end -->
+    <polygon points="290,2 300,-8 288,12" fill="#C2532E" opacity="0.55"/>
+  </g>
+</svg>

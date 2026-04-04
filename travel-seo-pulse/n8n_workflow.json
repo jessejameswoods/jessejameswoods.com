@@ -1,0 +1,126 @@
+{
+  "name": "Travel SEO Pulse — Daily Newsletter",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 6 * * *"
+            }
+          ]
+        }
+      },
+      "id": "cron-trigger",
+      "name": "Daily 6am Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "command": "cd /Users/jessejameswoods/Projects/jessejameswoods.com/travel-seo-pulse && python3 main.py 2>&1",
+        "timeout": 300
+      },
+      "id": "run-pipeline",
+      "name": "Run Newsletter Pipeline",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.stderr }}",
+              "operation": "contains",
+              "value2": "error"
+            }
+          ]
+        }
+      },
+      "id": "check-error",
+      "name": "Check for Errors",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "jjwoods3@gmail.com",
+        "toEmail": "jjwoods3@gmail.com",
+        "subject": "⚠️ Travel SEO Pulse — Pipeline Error",
+        "text": "The Travel SEO Pulse pipeline failed.\n\nError output:\n{{ $json.stderr }}\n\nStdout:\n{{ $json.stdout }}\n\nCheck the log at ~/Projects/jessejameswoods.com/travel-seo-pulse/travel_seo_pulse.log"
+      },
+      "id": "error-alert",
+      "name": "Send Error Alert",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1000, 200],
+      "notes": "Requires Gmail OAuth credentials configured in n8n"
+    },
+    {
+      "parameters": {
+        "fromEmail": "jjwoods3@gmail.com",
+        "toEmail": "jjwoods3@gmail.com",
+        "subject": "✅ Travel SEO Pulse — Sent Successfully",
+        "text": "Today's newsletter was published and sent.\n\nOutput:\n{{ $json.stdout }}"
+      },
+      "id": "success-alert",
+      "name": "Send Success Confirmation",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1000, 400],
+      "notes": "Requires Gmail OAuth credentials configured in n8n"
+    }
+  ],
+  "connections": {
+    "Daily 6am Trigger": {
+      "main": [
+        [
+          {
+            "node": "Run Newsletter Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Newsletter Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Check for Errors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for Errors": {
+      "main": [
+        [
+          {
+            "node": "Send Error Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Success Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  }
+}

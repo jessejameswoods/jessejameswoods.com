@@ -1,0 +1,22 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .jw-letter { fill: #C2532E; }
+      .contrail { fill: none; stroke: #D4654A; stroke-width: 18; stroke-linecap: round; opacity: 0.6; }
+    </style>
+  </defs>
+
+  <!-- Letterforms -->
+  <g id="letterforms">
+    <!-- J -->
+    <path class="jw-letter" d="M 85 80 L 175 80 L 175 140 L 135 140 L 135 320 Q 135 400 65 400 Q 30 400 15 385 L 45 330 Q 55 340 80 340 Q 120 340 120 295 L 120 80 Z" />
+
+    <!-- W -->
+    <path class="jw-letter" d="M 260 80 L 310 340 L 340 170 L 370 340 L 420 80 L 475 80 L 420 420 L 370 210 L 340 340 L 310 210 L 260 420 L 205 80 Z" />
+  </g>
+
+  <!-- Contrail line - elegant curved path from bottom left to upper right -->
+  <g id="contrail">
+    <path class="contrail" d="M 120 380 Q 200 320 280 200 T 420 60" />
+  </g>
+</svg>

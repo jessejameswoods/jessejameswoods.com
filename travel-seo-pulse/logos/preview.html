@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo Preview — Concepts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 2rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  body.light { background: #f5f5f5; color: #333; }
+  body.dark { background: #1a1a1a; color: #eee; }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  h1 { font-size: 1.5rem; font-weight: 600; }
+  h2 { font-size: 1.2rem; font-weight: 600; margin: 2rem 0 1rem; }
+  .toggle {
+    padding: 0.5rem 1rem;
+    border: 1px solid currentColor;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font-size: 0.875rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .card-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    min-height: 240px;
+  }
+  body.light .card-img { background: #fff; }
+  body.dark .card-img { background: #2a2a2a; }
+  .card-img img {
+    max-width: 100%;
+    max-height: 200px;
+  }
+  .card-label {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
+  }
+  body.light .card-label { background: #fafafa; }
+  body.dark .card-label { background: #222; }
+  .size-check {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: end;
+    margin-top: 1rem;
+  }
+  .size-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .size-group .label { font-size: 0.8rem; font-weight: 500; }
+  .size-row {
+    display: flex;
+    gap: 1rem;
+    align-items: end;
+  }
+  .size-item { text-align: center; }
+  .size-item .dim { font-size: 0.75rem; opacity: 0.6; }
+</style>
+</head>
+<body class="light">
+  <div class="header">
+    <h1>Logo Preview — Concepts</h1>
+    <button class="toggle" onclick="document.body.classList.toggle('dark'); document.body.classList.toggle('light'); this.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';">🌙 Dark</button>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-img">
+        <img src="concepts/concept-1.svg" alt="Concept 1 — Geometric Monogram">
+      </div>
+      <div class="card-label">1 — Geometric Monogram</div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="concepts/concept-2.svg" alt="Concept 2 — Negative Space Circle">
+      </div>
+      <div class="card-label">2 — Negative Space Circle</div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="concepts/concept-3.svg" alt="Concept 3 — Bold Type + Contrail">
+      </div>
+      <div class="card-label">3 — Bold Type + Contrail</div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="concepts/concept-4.svg" alt="Concept 4 — Rounded Badge">
+      </div>
+      <div class="card-label">4 — Rounded Badge</div>
+    </div>
+  </div>
+
+  <h2>Favicon Size Check</h2>
+  <div class="size-check">
+    <div class="size-group">
+      <div class="label">1 — Geometric</div>
+      <div class="size-row">
+        <div class="size-item"><img src="concepts/concept-1.svg" width="64" height="64"><div class="dim">64px</div></div>
+        <div class="size-item"><img src="concepts/concept-1.svg" width="40" height="40"><div class="dim">40px</div></div>
+        <div class="size-item"><img src="concepts/concept-1.svg" width="32" height="32"><div class="dim">32px</div></div>
+        <div class="size-item"><img src="concepts/concept-1.svg" width="16" height="16"><div class="dim">16px</div></div>
+      </div>
+    </div>
+    <div class="size-group">
+      <div class="label">2 — Neg. Space</div>
+      <div class="size-row">
+        <div class="size-item"><img src="concepts/concept-2.svg" width="64" height="64"><div class="dim">64px</div></div>
+        <div class="size-item"><img src="concepts/concept-2.svg" width="40" height="40"><div class="dim">40px</div></div>
+        <div class="size-item"><img src="concepts/concept-2.svg" width="32" height="32"><div class="dim">32px</div></div>
+        <div class="size-item"><img src="concepts/concept-2.svg" width="16" height="16"><div class="dim">16px</div></div>
+      </div>
+    </div>
+    <div class="size-group">
+      <div class="label">3 — Type + Trail</div>
+      <div class="size-row">
+        <div class="size-item"><img src="concepts/concept-3.svg" width="64" height="64"><div class="dim">64px</div></div>
+        <div class="size-item"><img src="concepts/concept-3.svg" width="40" height="40"><div class="dim">40px</div></div>
+        <div class="size-item"><img src="concepts/concept-3.svg" width="32" height="32"><div class="dim">32px</div></div>
+        <div class="size-item"><img src="concepts/concept-3.svg" width="16" height="16"><div class="dim">16px</div></div>
+      </div>
+    </div>
+    <div class="size-group">
+      <div class="label">4 — Badge</div>
+      <div class="size-row">
+        <div class="size-item"><img src="concepts/concept-4.svg" width="64" height="64"><div class="dim">64px</div></div>
+        <div class="size-item"><img src="concepts/concept-4.svg" width="40" height="40"><div class="dim">40px</div></div>
+        <div class="size-item"><img src="concepts/concept-4.svg" width="32" height="32"><div class="dim">32px</div></div>
+        <div class="size-item"><img src="concepts/concept-4.svg" width="16" height="16"><div class="dim">16px</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

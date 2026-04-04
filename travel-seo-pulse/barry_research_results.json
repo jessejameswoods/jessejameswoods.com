@@ -1,0 +1,1429 @@
+{
+  "meta": {
+    "total_recaps": 20,
+    "successful": 18,
+    "failed": 2
+  },
+  "seo_sources": {
+    "Ahrefs": 9,
+    "Nikki Pilkington": 9,
+    "Advanced Web Ranking": 5,
+    "Moz": 4,
+    "Hobo": 3,
+    "Ilana Davis": 3,
+    "Onely": 3,
+    "SISTRIX": 2,
+    "Digiday": 2,
+    "Press Gazette": 2,
+    "Dan Taylor SEO": 2,
+    "JumpFly Digital Marketing Blog": 2,
+    "Billie Geena": 2,
+    "Brainlabs": 2,
+    "Wix SEO Hub": 2,
+    "DiscoverSnoop": 2,
+    "Seer Interactive": 2,
+    "Semrush": 2,
+    "Common Crawl - Blog": 2,
+    "Sitebulb": 2,
+    "Women in Tech SEO": 2,
+    "Schema App": 2,
+    "SALT agency": 2,
+    "Marie Haynes": 2,
+    "Product Led SEO": 2,
+    "Intergrowth": 1,
+    "Foundation Inc": 1,
+    "Digitaloft": 1,
+    "Suganthan": 1,
+    "Practical Ecommerce": 1,
+    "Ann Smarty": 1,
+    "SEO for Lunch": 1,
+    "Jose Luis Hernando": 1,
+    "JumpFly": 1,
+    "Search Off the Record": 1,
+    "DEJAN": 1,
+    "WordLift": 1,
+    "ahrefs": 1,
+    "Duane Forrester": 1,
+    "Axios": 1,
+    "WordStream": 1,
+    "Visively": 1,
+    "Futurism": 1,
+    "Analytics Insight": 1,
+    "Berlin SEO & Content Club": 1,
+    "DAGMAR": 1,
+    "SEO Vendor": 1,
+    "Jonathan Alonso": 1,
+    "iGamingToday": 1,
+    "Igniting Business": 1,
+    "Growtika": 1,
+    "STAT Search Analytics": 1,
+    "Grumpy Old SEO": 1,
+    "BruceClay": 1,
+    "HackerNoon": 1,
+    "Jose Luis Hernando Sanz": 1,
+    "Koozai": 1,
+    "GSQI": 1,
+    "Clara Soteras": 1,
+    "Gus Pelogia": 1,
+    "SEO for Google News": 1,
+    "Reboot": 1,
+    "WTF is SEO?": 1,
+    "Momentic": 1,
+    "Google Online Security Blog": 1,
+    "Dagmar Marketing": 1,
+    "Newzdash": 1,
+    "OVC Lawyer Marketing": 1,
+    "QueryBurst": 1,
+    "SearchEngineWorld": 1,
+    "SEO For Journalism": 1,
+    "Five Blocks": 1,
+    "Bill Hartzer": 1,
+    "Jono Alderson": 1,
+    "Chris Green": 1,
+    "Profound": 1,
+    "Near Media": 1,
+    "Screaming Frog": 1,
+    "Blue Array SEO": 1,
+    "Clearscope": 1,
+    "DebugBear": 1,
+    "SEO dot co": 1,
+    "Peaklora": 1,
+    "Common Crawl Blog": 1,
+    "Amsive": 1,
+    "Leadership SEO": 1,
+    "Hallam": 1,
+    "The SEO Community": 1,
+    "Himani Kankaria": 1,
+    "NewzDash": 1
+  },
+  "ai_sources": {
+    "Google Blog": 9,
+    "The Information": 4,
+    "Moz": 3,
+    "Anthropic": 3,
+    "DEJAN": 3,
+    "TechCrunch": 3,
+    "Ahrefs": 2,
+    "Seer Interactive": 2,
+    "CNBC": 2,
+    "Testing Catalog": 2,
+    "Financial Times (Sub)": 2,
+    "Wall Street Journal": 2,
+    "The Verge": 2,
+    "OpenAI": 2,
+    "MIT Technology Review": 2,
+    "Bloomberg": 2,
+    "iPullRank": 1,
+    "Pew Research Center": 1,
+    "Ann Smarty": 1,
+    "Microsoft Advertising": 1,
+    "Google DeepMind": 1,
+    "Visibility Labs": 1,
+    "Windows Central": 1,
+    "ZDNET": 1,
+    "A16Z": 1,
+    "Advanced Web Ranking": 1,
+    "HBR": 1,
+    "NBC News": 1,
+    "The Decoder": 1,
+    "Brainlabs": 1,
+    "Implicator": 1,
+    "Microsoft Copilot Blog": 1,
+    "Microsoft Security Blog": 1,
+    "ChatGPT Release Notes": 1,
+    "Peec AI": 1,
+    "Skift": 1,
+    "Annielytics": 1,
+    "BBC": 1,
+    "Waymo": 1,
+    "Duane Forrester Decodes": 1,
+    "WordLift Blog": 1,
+    "Andreessen Horowitz": 1,
+    "The Washington Post": 1,
+    "seoClarity": 1,
+    "The Official Microsoft Blog": 1,
+    "Axios": 1,
+    "ProPublica": 1
+  },
+  "sections_seen": {
+    "AI & LLMs": 17,
+    "Industry & Business": 18,
+    "Links & Content Marketing": 18,
+    "Local & Maps": 18,
+    "SEO": 18,
+    "Google Ads / PPC": 18,
+    "Search Features": 17,
+    "Other Search": 15,
+    "Analytics": 13
+  },
+  "all_section_tallies": {
+    "AI & LLMs": {
+      "Google Blog": 9,
+      "The Information": 4,
+      "Moz": 3,
+      "Anthropic": 3,
+      "DEJAN": 3,
+      "TechCrunch": 3,
+      "Ahrefs": 2,
+      "Seer Interactive": 2,
+      "CNBC": 2,
+      "Testing Catalog": 2,
+      "Financial Times (Sub)": 2,
+      "Wall Street Journal": 2,
+      "The Verge": 2,
+      "OpenAI": 2,
+      "MIT Technology Review": 2,
+      "Bloomberg": 2,
+      "iPullRank": 1,
+      "Pew Research Center": 1,
+      "Ann Smarty": 1,
+      "Microsoft Advertising": 1,
+      "Google DeepMind": 1,
+      "Visibility Labs": 1,
+      "Windows Central": 1,
+      "ZDNET": 1,
+      "A16Z": 1,
+      "Advanced Web Ranking": 1,
+      "HBR": 1,
+      "NBC News": 1,
+      "The Decoder": 1,
+      "Brainlabs": 1,
+      "Implicator": 1,
+      "Microsoft Copilot Blog": 1,
+      "Microsoft Security Blog": 1,
+      "ChatGPT Release Notes": 1,
+      "Peec AI": 1,
+      "Skift": 1,
+      "Annielytics": 1,
+      "BBC": 1,
+      "Waymo": 1,
+      "Duane Forrester Decodes": 1,
+      "WordLift Blog": 1,
+      "Andreessen Horowitz": 1,
+      "The Washington Post": 1,
+      "seoClarity": 1,
+      "The Official Microsoft Blog": 1,
+      "Axios": 1,
+      "ProPublica": 1
+    },
+    "Industry & Business": {
+      "Google Blog": 11,
+      "The Information": 10,
+      "Bloomberg": 10,
+      "CNBC": 10,
+      "Reuters": 7,
+      "Law360": 5,
+      "Wall Street Journal": 4,
+      "The Verge": 3,
+      "New York Times": 3,
+      "MediaPost": 3,
+      "Google Search Central Blog": 3,
+      "Financial Times (Sub)": 3,
+      "TechCrunch": 3,
+      "9to5Google": 2,
+      "Axios": 2,
+      "Data Center Dynamics": 2,
+      "The Seattle Times": 1,
+      "MacRumors": 1,
+      "Telegraph": 1,
+      "Fast Company": 1,
+      "SEM Rush": 1,
+      "Eric Goldman": 1,
+      "Marie Haynes": 1,
+      "Wired": 1,
+      "YNet": 1,
+      "StateScoop": 1,
+      "Duluth News Tribune": 1,
+      "Jessica Tillipman": 1,
+      "Amazon": 1,
+      "The Official Microsoft Blog": 1,
+      "Washington Post": 1,
+      "Fox Business Video": 1,
+      "SerpApi": 1,
+      "Benedict Evans": 1,
+      "FeedArmy": 1,
+      "Vanity Fair": 1,
+      "Publishers Weekly": 1,
+      "AppleInsider": 1,
+      "The Atlantic": 1,
+      "LinkedIn": 1
+    },
+    "Links & Content Marketing": {
+      "Content Marketing Institute": 10,
+      "Moz": 4,
+      "SALT.agency": 3,
+      "Ahrefs": 3,
+      "BruceClay": 2,
+      "Nikki Pilkington": 1,
+      "The Inference": 1,
+      "SearchPilot": 1,
+      "Alice Rowan": 1,
+      "WordStream": 1,
+      "Adam Riemer": 1,
+      "Oncrawl": 1,
+      "Hallam": 1,
+      "SALT agency": 1,
+      "TopRank": 1,
+      "Practical Ecommerce": 1,
+      "eMarketer": 1,
+      "marte": 1,
+      "CommPRO": 1,
+      "MarTech": 1,
+      "Majestic SEO Podcast": 1,
+      "Sitebulb": 1,
+      "KP Playbook": 1
+    },
+    "Local & Maps": {
+      "9to5Google": 5,
+      "AutoEvolution": 4,
+      "Android Police": 4,
+      "Google Blog": 3,
+      "The Verge": 3,
+      "Whitespark": 2,
+      "Android Central": 1,
+      "Local Visibility System": 1,
+      "Super Car Blondie": 1,
+      "South China Morning Post": 1,
+      "Dave Ashworth": 1,
+      "JumpFly": 1,
+      "Tom's Guide": 1,
+      "PPC News Feed": 1,
+      "Boing Boing": 1,
+      "Search Atlas": 1,
+      "Android Headlines": 1,
+      "Sterling Sky": 1,
+      "Bloomberg": 1,
+      "Semrush": 1,
+      "BBC": 1,
+      "Near Media": 1,
+      "Igniting Business": 1,
+      "Street Fight": 1,
+      "Not A Tesla App": 1
+    },
+    "SEO": {
+      "Ahrefs": 9,
+      "Nikki Pilkington": 9,
+      "Advanced Web Ranking": 5,
+      "Moz": 4,
+      "Hobo": 3,
+      "Ilana Davis": 3,
+      "Onely": 3,
+      "SISTRIX": 2,
+      "Digiday": 2,
+      "Press Gazette": 2,
+      "Dan Taylor SEO": 2,
+      "JumpFly Digital Marketing Blog": 2,
+      "Billie Geena": 2,
+      "Brainlabs": 2,
+      "Wix SEO Hub": 2,
+      "DiscoverSnoop": 2,
+      "Seer Interactive": 2,
+      "Semrush": 2,
+      "Common Crawl - Blog": 2,
+      "Sitebulb": 2,
+      "Women in Tech SEO": 2,
+      "Schema App": 2,
+      "SALT agency": 2,
+      "Marie Haynes": 2,
+      "Product Led SEO": 2,
+      "Intergrowth": 1,
+      "Foundation Inc": 1,
+      "Digitaloft": 1,
+      "Suganthan": 1,
+      "Practical Ecommerce": 1,
+      "Ann Smarty": 1,
+      "SEO for Lunch": 1,
+      "Jose Luis Hernando": 1,
+      "JumpFly": 1,
+      "Search Off the Record": 1,
+      "DEJAN": 1,
+      "WordLift": 1,
+      "ahrefs": 1,
+      "Duane Forrester": 1,
+      "Axios": 1,
+      "WordStream": 1,
+      "Visively": 1,
+      "Futurism": 1,
+      "Analytics Insight": 1,
+      "Berlin SEO & Content Club": 1,
+      "DAGMAR": 1,
+      "SEO Vendor": 1,
+      "Jonathan Alonso": 1,
+      "iGamingToday": 1,
+      "Igniting Business": 1,
+      "Growtika": 1,
+      "STAT Search Analytics": 1,
+      "Grumpy Old SEO": 1,
+      "BruceClay": 1,
+      "HackerNoon": 1,
+      "Jose Luis Hernando Sanz": 1,
+      "Koozai": 1,
+      "GSQI": 1,
+      "Clara Soteras": 1,
+      "Gus Pelogia": 1,
+      "SEO for Google News": 1,
+      "Reboot": 1,
+      "WTF is SEO?": 1,
+      "Momentic": 1,
+      "Google Online Security Blog": 1,
+      "Dagmar Marketing": 1,
+      "Newzdash": 1,
+      "OVC Lawyer Marketing": 1,
+      "QueryBurst": 1,
+      "SearchEngineWorld": 1,
+      "SEO For Journalism": 1,
+      "Five Blocks": 1,
+      "Bill Hartzer": 1,
+      "Jono Alderson": 1,
+      "Chris Green": 1,
+      "Profound": 1,
+      "Near Media": 1,
+      "Screaming Frog": 1,
+      "Blue Array SEO": 1,
+      "Clearscope": 1,
+      "DebugBear": 1,
+      "SEO dot co": 1,
+      "Peaklora": 1,
+      "Common Crawl Blog": 1,
+      "Amsive": 1,
+      "Leadership SEO": 1,
+      "Hallam": 1,
+      "The SEO Community": 1,
+      "Himani Kankaria": 1,
+      "NewzDash": 1
+    },
+    "Google Ads / PPC": {
+      "PPC News Feed": 29,
+      "Google Ads Developer Blog": 8,
+      "Google Blog": 5,
+      "Jyll Saskin Gales": 5,
+      "ZATO PPC Marketing": 4,
+      "Hopskip Media": 4,
+      "Smarter Ecommerce": 4,
+      "FeedArmy": 4,
+      "Optmyzr": 3,
+      "Wired": 3,
+      "JumpFly Digital Marketing Blog": 3,
+      "PPC Live": 3,
+      "WordStream": 3,
+      "JumpFly": 3,
+      "AdWeek": 2,
+      "Hallam": 2,
+      "Microsoft Advertising": 2,
+      "The Information": 2,
+      "Koozai": 2,
+      "Wall Street Journal": 1,
+      "Practical Ecommerce": 1,
+      "Marlin SEM": 1,
+      "Law360 UK": 1,
+      "Bloomberg": 1,
+      "KP Playbook": 1,
+      "MeasureU": 1,
+      "Google AdSense Help": 1,
+      "Cypress North": 1,
+      "Ilana Davis": 1,
+      "MarlinSEM": 1,
+      "Foundation Inc": 1,
+      "SearchLab Digital": 1
+    },
+    "Search Features": {
+      "9to5Google": 6,
+      "Google Blog": 5,
+      "ChatGPT Release Notes": 4,
+      "Bloomberg": 2,
+      "OpenAI": 2,
+      "Android Police": 2,
+      "Ahrefs": 1,
+      "CNBC": 1,
+      "Seer Interactive": 1,
+      "PPC News Feed": 1,
+      "9to5 Google": 1,
+      "windows latest": 1,
+      "Android Authority": 1,
+      "Find Articles": 1,
+      "SE Ranking": 1,
+      "Nikki Pilkington": 1,
+      "Chrome for Developers": 1,
+      "SparkToro": 1,
+      "Nectiv": 1,
+      "Engadget": 1,
+      "Reddit": 1,
+      "AppleInsider": 1,
+      "MacRumors": 1,
+      "PCMag": 1,
+      "Wired": 1
+    },
+    "Other Search": {
+      "Google Blog": 7,
+      "Bloomberg": 3,
+      "TechCrunch": 2,
+      "The Verge": 2,
+      "9to5Google": 2,
+      "SparkToro": 1,
+      "Google Research Blog": 1,
+      "Nikki Pilkington": 1,
+      "Ahrefs": 1,
+      "Leadership SEO": 1,
+      "Windows Central": 1,
+      "AppleInsider": 1,
+      "John Battelle's Search Blog": 1,
+      "Google Online Security Blog": 1,
+      "Daring Fireball": 1,
+      "Android Authority": 1
+    },
+    "Analytics": {
+      "KRM Digital Marketing": 10,
+      "PPC News Feed": 2,
+      "Search Engine Journal": 2,
+      "Google Blog": 1,
+      "Elie Berreby": 1,
+      "KRM Digital Marketing Ltd": 1,
+      "SparkToro": 1,
+      "DAGMAR": 1,
+      "MarTech": 1,
+      "MeasureU": 1,
+      "Audience Key": 1,
+      "Google Cloud Blog": 1,
+      "Measure Minds Group": 1,
+      "Google Analytics Help": 1,
+      "Measured": 1
+    }
+  },
+  "per_recap": {
+    "2026-03-27": {
+      "AI & LLMs": [
+        "iPullRank",
+        "Ahrefs",
+        "Pew Research Center",
+        "Moz"
+      ],
+      "Industry & Business": [
+        "The Verge",
+        "The Information",
+        "The Seattle Times"
+      ],
+      "Links & Content Marketing": [
+        "Content Marketing Institute"
+      ],
+      "Local & Maps": [
+        "Whitespark"
+      ],
+      "SEO": [
+        "Hobo",
+        "Intergrowth",
+        "Foundation Inc"
+      ],
+      "Google Ads / PPC": [
+        "PPC News Feed",
+        "PPC News Feed",
+        "Google Ads Developer Blog",
+        "PPC News Feed",
+        "PPC News Feed",
+        "Optmyzr",
+        "Wired",
+        "PPC News Feed"
+      ],
+      "Search Features": [
+        "Bloomberg",
+        "9to5Google",
+        "Ahrefs",
+        "Google Blog"
+      ],
+      "Other Search": [
+        "Google Blog"
+      ]
+    },
+    "2026-03-26": {
+      "Analytics": [
+        "Google Blog"
+      ],
+      "Industry & Business": [
+        "The Information",
+        "New York Times",
+        "Wall Street Journal",
+        "Reuters"
+      ],
+      "Links & Content Marketing": [
+        "Content Marketing Institute"
+      ],
+      "Local & Maps": [
+        "Android Central"
+      ],
+      "SEO": [
+        "Digitaloft",
+        "SISTRIX",
+        "Digiday",
+        "Press Gazette",
+        "Dan Taylor SEO"
+      ],
+      "Google Ads / PPC": [
+        "JumpFly Digital Marketing Blog",
+        "Google Blog",
+        "ZATO PPC Marketing",
+        "AdWeek"
+      ],
+      "Search Features": [
+        "ChatGPT Release Notes"
+      ],
+      "Other Search": [
+        "SparkToro",
+        "Google Research Blog"
+      ]
+    },
+    "2026-03-25": {
+      "AI & LLMs": [
+        "Seer Interactive",
+        "CNBC",
+        "Ann Smarty"
+      ],
+      "Industry & Business": [
+        "Google Blog",
+        "MediaPost",
+        "The Information"
+      ],
+      "Links & Content Marketing": [
+        "Content Marketing Institute",
+        "BruceClay"
+      ],
+      "Local & Maps": [
+        "Google Blog",
+        "The Verge",
+        "9to5Google"
+      ],
+      "SEO": [
+        "JumpFly Digital Marketing Blog",
+        "Billie Geena",
+        "Suganthan",
+        "Ahrefs",
+        "Ilana Davis"
+      ],
+      "Google Ads / PPC": [
+        "Hallam",
+        "PPC Live"
+      ],
+      "Search Features": [
+        "CNBC",
+        "9to5Google",
+        "Google Blog",
+        "OpenAI"
+      ],
+      "Other Search": [
+        "Google Blog"
+      ]
+    },
+    "2026-03-24": {
+      "AI & LLMs": [
+        "Testing Catalog",
+        "Microsoft Advertising",
+        "Google Blog"
+      ],
+      "Analytics": [
+        "KRM Digital Marketing",
+        "KRM Digital Marketing",
+        "Elie Berreby"
+      ],
+      "Industry & Business": [
+        "MacRumors",
+        "Wall Street Journal",
+        "Reuters",
+        "Google Blog",
+        "Telegraph",
+        "MediaPost",
+        "Google Search Central Blog",
+        "Fast Company"
+      ],
+      "Links & Content Marketing": [
+        "Nikki Pilkington"
+      ],
+      "Local & Maps": [
+        "AutoEvolution"
+      ],
+      "SEO": [
+        "Nikki Pilkington",
+        "Billie Geena",
+        "Hobo",
+        "Advanced Web Ranking",
+        "Practical Ecommerce",
+        "JumpFly Digital Marketing Blog",
+        "Nikki Pilkington"
+      ],
+      "Google Ads / PPC": [
+        "PPC News Feed",
+        "Google Ads Developer Blog",
+        "Jyll Saskin Gales",
+        "WordStream",
+        "Wall Street Journal"
+      ]
+    },
+    "2026-03-19": {
+      "AI & LLMs": [
+        "Google DeepMind",
+        "Visibility Labs",
+        "Windows Central",
+        "Google Blog",
+        "ZDNET",
+        "Google Blog"
+      ],
+      "Analytics": [
+        "KRM Digital Marketing",
+        "KRM Digital Marketing Ltd",
+        "KRM Digital Marketing"
+      ],
+      "Industry & Business": [
+        "Bloomberg",
+        "Google Blog",
+        "Google Search Central Blog",
+        "SEM Rush",
+        "Eric Goldman",
+        "Reuters",
+        "The Information",
+        "Google Blog",
+        "MediaPost",
+        "The Verge",
+        "Google Blog"
+      ],
+      "Links & Content Marketing": [
+        "The Inference",
+        "SearchPilot",
+        "Moz",
+        "SALT.agency",
+        "Ahrefs",
+        "Ahrefs",
+        "Alice Rowan",
+        "BruceClay"
+      ],
+      "Local & Maps": [
+        "The Verge",
+        "Local Visibility System"
+      ],
+      "SEO": [
+        "Ann Smarty",
+        "Moz",
+        "SEO for Lunch",
+        "Jose Luis Hernando",
+        "Nikki Pilkington",
+        "JumpFly",
+        "Hobo",
+        "Search Off the Record",
+        "Advanced Web Ranking",
+        "DEJAN",
+        "Dan Taylor SEO",
+        "Brainlabs",
+        "Wix SEO Hub",
+        "WordLift",
+        "Moz",
+        "Ahrefs",
+        "DiscoverSnoop",
+        "ahrefs",
+        "Duane Forrester",
+        "Seer Interactive",
+        "Axios",
+        "Semrush",
+        "WordStream",
+        "DiscoverSnoop"
+      ],
+      "Google Ads / PPC": [
+        "WordStream",
+        "Practical Ecommerce",
+        "Google Blog",
+        "PPC Live",
+        "PPC News Feed",
+        "Wired",
+        "Marlin SEM",
+        "PPC News Feed",
+        "PPC News Feed",
+        "PPC News Feed",
+        "PPC News Feed",
+        "Hopskip Media",
+        "PPC News Feed",
+        "Law360 UK",
+        "Microsoft Advertising",
+        "JumpFly Digital Marketing Blog"
+      ],
+      "Search Features": [
+        "Seer Interactive",
+        "PPC News Feed",
+        "9to5 Google",
+        "windows latest"
+      ],
+      "Other Search": [
+        "Google Blog"
+      ]
+    },
+    "2026-03-10": {
+      "AI & LLMs": [
+        "A16Z",
+        "Advanced Web Ranking",
+        "Financial Times (Sub)"
+      ],
+      "Analytics": [
+        "SparkToro",
+        "DAGMAR",
+        "MarTech"
+      ],
+      "Industry & Business": [
+        "Marie Haynes",
+        "9to5Google",
+        "Wired",
+        "The Information",
+        "YNet"
+      ],
+      "Links & Content Marketing": [
+        "SALT.agency",
+        "SALT.agency"
+      ],
+      "Local & Maps": [
+        "9to5Google",
+        "Super Car Blondie"
+      ],
+      "SEO": [
+        "Visively",
+        "Futurism",
+        "Analytics Insight",
+        "Berlin SEO & Content Club",
+        "Ilana Davis",
+        "DAGMAR",
+        "Digiday"
+      ],
+      "Google Ads / PPC": [
+        "PPC News Feed",
+        "PPC News Feed",
+        "PPC News Feed"
+      ],
+      "Search Features": [
+        "9to5Google",
+        "Android Authority",
+        "Find Articles",
+        "Android Police"
+      ],
+      "Other Search": [
+        "Bloomberg"
+      ]
+    },
+    "2026-03-09": {
+      "AI & LLMs": [
+        "Anthropic",
+        "Moz",
+        "DEJAN",
+        "HBR"
+      ],
+      "Analytics": [
+        "KRM Digital Marketing"
+      ],
+      "Industry & Business": [
+        "CNBC",
+        "CNBC",
+        "Financial Times (Sub)",
+        "Financial Times (Sub)",
+        "Law360",
+        "Google Blog"
+      ],
+      "Links & Content Marketing": [
+        "Moz"
+      ],
+      "Local & Maps": [
+        "Whitespark"
+      ],
+      "SEO": [
+        "SEO Vendor",
+        "Jonathan Alonso",
+        "Ahrefs",
+        "Common Crawl - Blog",
+        "iGamingToday",
+        "Nikki Pilkington",
+        "Sitebulb"
+      ],
+      "Google Ads / PPC": [
+        "Hallam",
+        "PPC News Feed",
+        "ZATO PPC Marketing",
+        "Smarter Ecommerce",
+        "PPC News Feed"
+      ],
+      "Search Features": [
+        "Android Police",
+        "SE Ranking",
+        "Nikki Pilkington"
+      ],
+      "Other Search": [
+        "Nikki Pilkington"
+      ]
+    },
+    "2026-03-05": {
+      "AI & LLMs": [
+        "Wall Street Journal",
+        "Google Blog",
+        "Google Blog",
+        "Financial Times (Sub)",
+        "The Information",
+        "NBC News",
+        "The Information"
+      ],
+      "Industry & Business": [
+        "Google Blog",
+        "Bloomberg",
+        "CNBC",
+        "9to5Google",
+        "Wall Street Journal",
+        "CNBC",
+        "Axios",
+        "Reuters",
+        "The Verge",
+        "StateScoop",
+        "Google Blog"
+      ],
+      "Links & Content Marketing": [
+        "WordStream",
+        "Content Marketing Institute",
+        "Content Marketing Institute"
+      ],
+      "Local & Maps": [
+        "Google Blog",
+        "AutoEvolution"
+      ],
+      "SEO": [
+        "Women in Tech SEO",
+        "Ahrefs",
+        "Ahrefs",
+        "Igniting Business",
+        "Growtika",
+        "STAT Search Analytics",
+        "Grumpy Old SEO"
+      ],
+      "Google Ads / PPC": [
+        "Bloomberg",
+        "FeedArmy",
+        "KP Playbook",
+        "PPC News Feed",
+        "The Information",
+        "ZATO PPC Marketing"
+      ],
+      "Search Features": [
+        "Google Blog"
+      ]
+    },
+    "2026-03-04": {
+      "AI & LLMs": [
+        "TechCrunch",
+        "The Decoder",
+        "Brainlabs",
+        "The Information",
+        "Implicator"
+      ],
+      "Industry & Business": [
+        "Duluth News Tribune",
+        "Financial Times (Sub)",
+        "CNBC"
+      ],
+      "Links & Content Marketing": [
+        "Adam Riemer",
+        "Oncrawl",
+        "Hallam",
+        "SALT agency"
+      ],
+      "Local & Maps": [
+        "9to5Google",
+        "South China Morning Post"
+      ],
+      "SEO": [
+        "BruceClay",
+        "HackerNoon",
+        "Jose Luis Hernando Sanz",
+        "Press Gazette",
+        "Koozai",
+        "Ahrefs",
+        "GSQI"
+      ],
+      "Google Ads / PPC": [
+        "MeasureU",
+        "ZATO PPC Marketing",
+        "FeedArmy",
+        "PPC News Feed",
+        "Smarter Ecommerce",
+        "PPC News Feed"
+      ],
+      "Search Features": [
+        "Chrome for Developers",
+        "Bloomberg",
+        "OpenAI"
+      ],
+      "Other Search": [
+        "TechCrunch",
+        "The Verge",
+        "Google Blog"
+      ]
+    },
+    "2026-03-03": {
+      "AI & LLMs": [
+        "Microsoft Copilot Blog",
+        "The Verge",
+        "Ahrefs"
+      ],
+      "Analytics": [
+        "MeasureU"
+      ],
+      "Industry & Business": [
+        "The Information",
+        "TechCrunch",
+        "Reuters",
+        "Jessica Tillipman",
+        "Law360"
+      ],
+      "Links & Content Marketing": [
+        "TopRank",
+        "Content Marketing Institute"
+      ],
+      "Local & Maps": [
+        "Dave Ashworth",
+        "JumpFly"
+      ],
+      "SEO": [
+        "Clara Soteras",
+        "Gus Pelogia",
+        "Advanced Web Ranking",
+        "SEO for Google News",
+        "Schema App",
+        "Reboot",
+        "Common Crawl - Blog",
+        "Ilana Davis",
+        "Schema App",
+        "Ahrefs",
+        "Onely",
+        "WTF is SEO?"
+      ],
+      "Google Ads / PPC": [
+        "JumpFly",
+        "Hopskip Media",
+        "PPC News Feed",
+        "Google AdSense Help",
+        "Google Blog"
+      ],
+      "Search Features": [
+        "SparkToro"
+      ],
+      "Other Search": [
+        "9to5Google",
+        "Ahrefs"
+      ]
+    },
+    "2026-03-02": {
+      "AI & LLMs": [
+        "OpenAI",
+        "DEJAN"
+      ],
+      "Analytics": [
+        "KRM Digital Marketing",
+        "KRM Digital Marketing"
+      ],
+      "Industry & Business": [
+        "Amazon",
+        "Data Center Dynamics",
+        "The Official Microsoft Blog",
+        "CNBC",
+        "The Information",
+        "Axios"
+      ],
+      "Links & Content Marketing": [
+        "Practical Ecommerce"
+      ],
+      "Local & Maps": [
+        "Android Police",
+        "AutoEvolution",
+        "Tom's Guide"
+      ],
+      "SEO": [
+        "Momentic",
+        "Google Online Security Blog",
+        "Moz",
+        "Dagmar Marketing",
+        "Nikki Pilkington"
+      ],
+      "Google Ads / PPC": [
+        "Cypress North",
+        "Google Ads Developer Blog",
+        "Google Blog",
+        "FeedArmy"
+      ],
+      "Search Features": [
+        "Nectiv"
+      ]
+    },
+    "2026-02-24": {
+      "AI & LLMs": [
+        "Wall Street Journal",
+        "Anthropic",
+        "Google Blog",
+        "Microsoft Security Blog",
+        "Anthropic"
+      ],
+      "Analytics": [
+        "Audience Key"
+      ],
+      "Industry & Business": [
+        "Bloomberg",
+        "New York Times",
+        "Data Center Dynamics",
+        "Washington Post",
+        "The Information",
+        "CNBC",
+        "Fox Business Video",
+        "New York Times",
+        "CNBC"
+      ],
+      "Links & Content Marketing": [
+        "eMarketer",
+        "marte",
+        "CommPRO"
+      ],
+      "Local & Maps": [
+        "9to5Google",
+        "PPC News Feed"
+      ],
+      "SEO": [
+        "Advanced Web Ranking",
+        "Newzdash",
+        "SALT agency",
+        "Semrush",
+        "OVC Lawyer Marketing",
+        "QueryBurst",
+        "SearchEngineWorld",
+        "SEO For Journalism",
+        "Five Blocks"
+      ],
+      "Google Ads / PPC": [
+        "WordStream",
+        "Ilana Davis",
+        "Jyll Saskin Gales"
+      ],
+      "Search Features": [
+        "Engadget",
+        "Google Blog"
+      ],
+      "Other Search": [
+        "9to5Google"
+      ]
+    },
+    "2026-02-23": {
+      "AI & LLMs": [
+        "The Information",
+        "ChatGPT Release Notes",
+        "Peec AI"
+      ],
+      "Industry & Business": [
+        "Wall Street Journal",
+        "SerpApi",
+        "TechCrunch",
+        "Benedict Evans",
+        "CNBC",
+        "FeedArmy"
+      ],
+      "Links & Content Marketing": [
+        "MarTech",
+        "Content Marketing Institute"
+      ],
+      "Local & Maps": [
+        "Boing Boing",
+        "Search Atlas"
+      ],
+      "SEO": [
+        "Moz",
+        "Onely",
+        "SISTRIX",
+        "Marie Haynes",
+        "Bill Hartzer",
+        "Women in Tech SEO",
+        "Jono Alderson",
+        "Chris Green",
+        "Profound",
+        "Sitebulb"
+      ],
+      "Google Ads / PPC": [
+        "Wired",
+        "MarlinSEM",
+        "FeedArmy",
+        "PPC News Feed",
+        "Jyll Saskin Gales"
+      ],
+      "Search Features": [
+        "9to5Google"
+      ],
+      "Other Search": [
+        "Bloomberg",
+        "TechCrunch"
+      ]
+    },
+    "2026-02-20": {
+      "AI & LLMs": [
+        "Google Blog",
+        "Google Blog",
+        "Skift",
+        "Annielytics",
+        "MIT Technology Review"
+      ],
+      "Analytics": [
+        "Google Cloud Blog"
+      ],
+      "Industry & Business": [
+        "Law360",
+        "Bloomberg",
+        "Google Blog"
+      ],
+      "Links & Content Marketing": [
+        "Content Marketing Institute"
+      ],
+      "Local & Maps": [
+        "Android Police",
+        "Android Headlines"
+      ],
+      "SEO": [
+        "Near Media",
+        "Onely",
+        "Advanced Web Ranking",
+        "Screaming Frog"
+      ],
+      "Google Ads / PPC": [
+        "Google Ads Developer Blog",
+        "Jyll Saskin Gales",
+        "Foundation Inc",
+        "Google Blog",
+        "SearchLab Digital",
+        "JumpFly",
+        "Koozai",
+        "PPC News Feed",
+        "Smarter Ecommerce"
+      ],
+      "Search Features": [
+        "Reddit",
+        "9to5Google",
+        "AppleInsider",
+        "ChatGPT Release Notes"
+      ],
+      "Other Search": [
+        "Google Blog",
+        "Google Blog"
+      ]
+    },
+    "2026-02-19": {
+      "AI & LLMs": [
+        "BBC",
+        "Moz",
+        "TechCrunch",
+        "DEJAN",
+        "Google Blog"
+      ],
+      "Analytics": [
+        "Measure Minds Group",
+        "Google Analytics Help"
+      ],
+      "Industry & Business": [
+        "Vanity Fair",
+        "Bloomberg",
+        "Bloomberg",
+        "Reuters",
+        "Bloomberg",
+        "The Information",
+        "TechCrunch"
+      ],
+      "Links & Content Marketing": [
+        "Content Marketing Institute",
+        "Majestic SEO Podcast",
+        "Sitebulb"
+      ],
+      "Local & Maps": [
+        "Sterling Sky",
+        "Google Blog",
+        "9to5Google",
+        "Android Police"
+      ],
+      "SEO": [
+        "Blue Array SEO",
+        "Brainlabs",
+        "Clearscope",
+        "Product Led SEO"
+      ],
+      "Google Ads / PPC": [
+        "JumpFly Digital Marketing Blog",
+        "Hopskip Media",
+        "Microsoft Advertising",
+        "PPC Live",
+        "Smarter Ecommerce",
+        "PPC News Feed"
+      ],
+      "Search Features": [
+        "MacRumors"
+      ],
+      "Other Search": [
+        "Google Blog",
+        "Leadership SEO",
+        "The Verge"
+      ]
+    },
+    "2026-02-09": {
+      "AI & LLMs": [
+        "CNBC",
+        "Waymo",
+        "Duane Forrester Decodes"
+      ],
+      "Analytics": [
+        "KRM Digital Marketing",
+        "KRM Digital Marketing",
+        "KRM Digital Marketing",
+        "PPC News Feed"
+      ],
+      "Industry & Business": [
+        "CNBC",
+        "Publishers Weekly",
+        "The Information"
+      ],
+      "Links & Content Marketing": [
+        "Ahrefs",
+        "Moz"
+      ],
+      "Local & Maps": [
+        "Bloomberg",
+        "AutoEvolution",
+        "Semrush",
+        "BBC"
+      ],
+      "SEO": [
+        "Nikki Pilkington",
+        "Nikki Pilkington",
+        "Product Led SEO",
+        "DebugBear"
+      ],
+      "Google Ads / PPC": [
+        "PPC News Feed",
+        "Optmyzr",
+        "Google Ads Developer Blog",
+        "PPC News Feed"
+      ],
+      "Search Features": [
+        "PCMag",
+        "9to5Google"
+      ],
+      "Other Search": [
+        "Windows Central",
+        "AppleInsider",
+        "Bloomberg"
+      ]
+    },
+    "2026-02-02": {
+      "AI & LLMs": [
+        "TechCrunch",
+        "WordLift Blog",
+        "OpenAI",
+        "Bloomberg",
+        "The Verge",
+        "Testing Catalog",
+        "Andreessen Horowitz"
+      ],
+      "Analytics": [
+        "Search Engine Journal",
+        "PPC News Feed"
+      ],
+      "Industry & Business": [
+        "AppleInsider",
+        "Bloomberg",
+        "Google Blog",
+        "Law360",
+        "The Atlantic"
+      ],
+      "Links & Content Marketing": [
+        "KP Playbook"
+      ],
+      "Local & Maps": [
+        "Near Media",
+        "Igniting Business"
+      ],
+      "SEO": [
+        "Seer Interactive",
+        "SEO dot co",
+        "Peaklora",
+        "Nikki Pilkington",
+        "Nikki Pilkington"
+      ],
+      "Google Ads / PPC": [
+        "PPC News Feed",
+        "Koozai",
+        "PPC News Feed",
+        "PPC News Feed",
+        "Google Ads Developer Blog",
+        "Google Ads Developer Blog",
+        "Google Ads Developer Blog",
+        "AdWeek"
+      ],
+      "Search Features": [
+        "Wired",
+        "ChatGPT Release Notes",
+        "Google Blog"
+      ],
+      "Other Search": [
+        "John Battelle's Search Blog"
+      ]
+    },
+    "2026-01-27": {
+      "AI & LLMs": [
+        "Bloomberg",
+        "The Washington Post",
+        "Seer Interactive",
+        "seoClarity",
+        "The Official Microsoft Blog",
+        "Axios",
+        "ProPublica",
+        "MIT Technology Review"
+      ],
+      "Analytics": [
+        "Search Engine Journal",
+        "Measured"
+      ],
+      "Industry & Business": [
+        "Reuters",
+        "Law360",
+        "Bloomberg",
+        "Google Blog",
+        "Google Search Central Blog",
+        "LinkedIn",
+        "Bloomberg"
+      ],
+      "Links & Content Marketing": [
+        "Content Marketing Institute",
+        "Moz"
+      ],
+      "Local & Maps": [
+        "Street Fight",
+        "Not A Tesla App",
+        "The Verge",
+        "Android Police"
+      ],
+      "SEO": [
+        "Common Crawl Blog",
+        "Wix SEO Hub",
+        "Amsive",
+        "Ahrefs",
+        "Leadership SEO",
+        "Ahrefs",
+        "Hallam",
+        "The SEO Community",
+        "Himani Kankaria",
+        "Marie Haynes",
+        "SALT agency",
+        "NewzDash"
+      ],
+      "Google Ads / PPC": [
+        "Hopskip Media",
+        "The Information",
+        "Optmyzr",
+        "JumpFly",
+        "Jyll Saskin Gales"
+      ],
+      "Search Features": [
+        "ChatGPT Release Notes"
+      ],
+      "Other Search": [
+        "Google Online Security Blog",
+        "Daring Fireball",
+        "Android Authority"
+      ]
+    }
+  }
+}
