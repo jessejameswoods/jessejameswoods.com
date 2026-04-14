@@ -78,8 +78,12 @@ def main():
     stories = pull_feeds()
 
     if not stories:
-        logger.warning("No stories found in any feed. Nothing to generate.")
-        sys.exit(0)
+        logger.error(
+            "No stories found in any feed. This is a failure, not a no-op - "
+            "feeds are likely blocked (bot detection, 403s) or recency window is wrong. "
+            "Exiting non-zero so the runtime alerts instead of silently claiming success."
+        )
+        sys.exit(1)
 
     logger.info(f"Pulled {len(stories)} stories across {len(set(s.category for s in stories))} categories")
 
