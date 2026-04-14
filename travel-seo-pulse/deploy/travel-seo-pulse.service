@@ -1,0 +1,16 @@
+[Unit]
+Description=Travel SEO Pulse daily newsletter build + publish
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=pulse
+Group=pulse
+ExecStart=/usr/local/bin/travel-seo-pulse-run
+StandardOutput=journal
+StandardError=journal
+TimeoutStartSec=30min
+
+[Install]
+WantedBy=multi-user.target

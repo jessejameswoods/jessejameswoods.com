@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Travel SEO Pulse weekdays 06:00 Europe/Berlin
+
+[Timer]
+# Mon-Fri at 08:00 London time
+OnCalendar=Mon..Fri 06:00 Europe/Berlin
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target
