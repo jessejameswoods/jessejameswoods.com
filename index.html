@@ -84,8 +84,9 @@ section{padding:5rem 2rem}
 
 /* TESTIMONIALS */
 .testimonials{background:#fff}
-.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:2rem}
-.test-card{background:var(--cream);padding:2rem;border-radius:12px;transition:all .3s;border:1px solid var(--light-gray)}
+.test-grid{column-count:3;column-gap:2rem;margin-top:2rem}
+.test-card{background:var(--cream);padding:2rem;border-radius:12px;transition:all .3s;border:1px solid var(--light-gray);break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;display:inline-block;width:100%;margin-bottom:2rem}
+@media(max-width:1024px){.test-grid{column-count:2}}
 .test-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.08)}
 .test-quote{font-size:1rem;line-height:1.8;margin-bottom:1.25rem;color:var(--dark)}
 .test-author{font-weight:600;font-size:.9rem}
@@ -161,7 +162,7 @@ footer a:hover{opacity:1}
   .stat-num{font-size:2rem}
   .section-title{font-size:1.75rem;word-wrap:break-word}
   .nl-grid{grid-template-columns:1fr}
-  .test-grid{grid-template-columns:1fr}
+  .test-grid{column-count:1}
   .contact-grid{grid-template-columns:1fr!important}
   .timeline{padding-left:2.5rem}
   .tl-item::before{left:-2.5rem}
