@@ -84,13 +84,15 @@ section{padding:5rem 2rem}
 
 /* TESTIMONIALS */
 .testimonials{background:#fff}
-.test-grid{column-count:3;column-gap:2rem;margin-top:2rem}
-.test-card{background:var(--cream);padding:2rem;border-radius:12px;transition:all .3s;border:1px solid var(--light-gray);break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;display:inline-block;width:100%;margin-bottom:2rem}
-@media(max-width:1024px){.test-grid{column-count:2}}
+.test-grid{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.5rem 0 1.5rem;margin-top:2rem;scroll-behavior:smooth;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.test-card{flex:0 0 380px;background:var(--cream);padding:2rem;border-radius:12px;transition:all .3s;border:1px solid var(--light-gray);scroll-snap-align:start}
 .test-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.08)}
 .test-quote{font-size:1rem;line-height:1.8;margin-bottom:1.25rem;color:var(--dark)}
 .test-author{font-weight:600;font-size:.9rem}
+.test-author a{color:inherit;text-decoration:none;border-bottom:1px solid var(--terracotta);transition:color .2s}
+.test-author a:hover{color:var(--terracotta)}
 .test-role{font-size:.8rem;color:var(--warm-gray)}
+.test-hint{font-size:.8rem;color:var(--warm-gray);margin-top:.5rem;display:flex;align-items:center;gap:.5rem}
 
 /* TIMELINE */
 .timeline{position:relative;margin-top:2rem;padding-left:3rem}
@@ -162,7 +164,7 @@ footer a:hover{opacity:1}
   .stat-num{font-size:2rem}
   .section-title{font-size:1.75rem;word-wrap:break-word}
   .nl-grid{grid-template-columns:1fr}
-  .test-grid{column-count:1}
+  .test-card{flex:0 0 85%}
   .contact-grid{grid-template-columns:1fr!important}
   .timeline{padding-left:2.5rem}
   .tl-item::before{left:-2.5rem}
@@ -260,31 +262,42 @@ footer a:hover{opacity:1}
 <div class="section-inner reveal">
   <p class="section-label">What Colleagues Say</p>
   <h2 class="section-title">Trusted by People I've Worked With</h2>
+  <p class="test-hint">← swipe or scroll →</p>
   <div class="test-grid">
     <div class="test-card">
       <p class="test-quote">"Jesse and I shared Managing Director responsibilities at KAYAK Germany, and he's one of the best leaders I've worked with. He has excellent judgment, outstanding people skills, sets direction while being a true team player who makes everyone around him better. Jesse is deeply knowledgeable in SEO, marketing, and localization, and he successfully led KAYAK's large SEO and Localization teams through both good and challenging times - always with a clear sense of direction. He's a fast learner who's always up for new challenges. Above all, Jesse is a smart and fun person that I would love to work with again."</p>
-      <p class="test-author">Ralf Boeck</p>
+      <p class="test-author"><a href="https://www.linkedin.com/in/rboeck/" target="_blank" rel="nofollow noopener">Ralf Boeck</a></p>
       <p class="test-role">Software product technologist</p>
     </div>
     <div class="test-card">
       <p class="test-quote">"I hired Jesse early on when I started building the SEO program at KAYAK. Jesse became my closest partner in scaling that effort from the ground up into one of the world's leading travel SEO programs, generating $100M annually. He was a critical part of that success. Jesse is an exceptional digital marketer, with deep expertise in SEO and in every kind of online content distribution. He was key in the design, development and management of countless successful programs, including KAYAK's review collection program, travel awards and badges, travel trends etc. He built a massive program of human written travel content both scaled SEO content and carefully curated travel magazine grade content using experienced travel journalists. We would very often cook up an idea together - but it was Jesse who would organize the design, content and development teams to execute these programs. His greatest strength is his ability to manage many complex projects simultaneously. Jesse is highly organized, methodical and reliable under pressure. He can bring together cross-functional teams across a large company to work together on a common vision. He is a great leader to his own teams, inspiring and developing his people. He handles difficult personnel situations with good judgment, sensitivity and professionalism. Jesse has my highest recommendation both as a digital marketer and as an executive leader you can trust to execute and scale important initiatives."</p>
-      <p class="test-author">Rafael Baptista</p>
+      <p class="test-author"><a href="https://www.linkedin.com/in/rafaelbaptista/" target="_blank" rel="nofollow noopener">Rafael Baptista</a></p>
       <p class="test-role">CEO, SkyMonde Travel Inc.</p>
     </div>
     <div class="test-card">
-      <p class="test-quote">"A real pro in big-scale SEO - Jesse is a very talented person who I really enjoy working together with. His skills are really remarkable."</p>
-      <p class="test-author">Rene Lavrijsen</p>
+      <p class="test-quote">"Jesse is a born leader and has a lot of SEO knowledge. His communications skills with top management are the best. He manages projects with maximum efficiency and effectiveness. One of the important skills Jesse has is the ability to defend his approaches using data and rationality."</p>
+      <p class="test-author"><a href="https://www.linkedin.com/in/arturastutkus/" target="_blank" rel="nofollow noopener">Arturas Tutkus</a></p>
+      <p class="test-role">Data Platform Leader, KAYAK</p>
+    </div>
+    <div class="test-card">
+      <p class="test-quote">"Jesse is a very talented person who I really enjoy working together with. His skills are really remarkable as he's a real pro in big-scale SEO and also has good knowledge in other fields like Web Analytics. I always noticed how good Jesse gets along with other people. His unique style makes him a great fit in almost any team I would say. Communication is important and Jesse is really good at it. In projects he always keeps the end goal in mind and finds his way of moving forward with it. I've never seen such an energetic person who has endless to-do lists and manages to complete all of it. Jesse is also a person you can trust and rely on, which I find a very important factor. Grab the chance to get to know him if you get the opportunity."</p>
+      <p class="test-author"><a href="https://www.linkedin.com/in/renelavrijsen/" target="_blank" rel="nofollow noopener">René Lavrijsen</a></p>
       <p class="test-role">Startup Owner</p>
     </div>
     <div class="test-card">
-      <p class="test-quote">"Will always find a solution very fast - Jesse is the colleague everyone wants to have. As a good team player he's always ready to help."</p>
-      <p class="test-author">Perrine Labaune</p>
+      <p class="test-quote">"Jesse is the colleague everyone wants to have. As a good team player he's always open to exchanging new ideas. He is also always contributing new creative SEO or online marketing ideas to make the company more successful. Furthermore he can easily analyze a problem and will always find a solution very fast."</p>
+      <p class="test-author"><a href="https://www.linkedin.com/in/perrine-labaune-88318b68/" target="_blank" rel="nofollow noopener">Perrine Labaune</a></p>
       <p class="test-role">Web Consultant, Swisscom</p>
     </div>
     <div class="test-card">
-      <p class="test-quote">"Strong expertise on SEO - I am very pleased to work with Jesse at HolidayCheck. He has a strong expertise on SEO and in online Marketing."</p>
-      <p class="test-author">Carlos Ferrer Fernandez</p>
+      <p class="test-quote">"I am very pleased to work with Jesse at HolidayCheck. He has a strong expertise on SEO and in online Marketing. He's a very reliable professional, with high sense of responsibility and professional conscience. As a team player, he transmits empathy towards the rest of the team, being dynamic, energetic and with a positive &ldquo;can do&rdquo; attitude. He's the SEO reference of the team and I hope this will remain for a long time !"</p>
+      <p class="test-author"><a href="https://www.linkedin.com/in/carlos-ferrer-go-to-market-international-expansion/" target="_blank" rel="nofollow noopener">Carlos Ferrer</a></p>
       <p class="test-role">Intl Marketing Manager, Evaneos</p>
+    </div>
+    <div class="test-card">
+      <p class="test-quote">"I worked with Jesse at Shopgate GmbH. He was a detail-oriented, hardworking manager and he taught me a lot during that time. Also, he exhibits strong interpersonal skills and has a good sense of humour, which makes him loved by all employees. I recommend Jesse to every employee who is looking for a skilled, brilliant manager."</p>
+      <p class="test-author"><a href="https://www.linkedin.com/in/dagmaragurack/" target="_blank" rel="nofollow noopener">Dagmara Gurack</a></p>
+      <p class="test-role">Unit Manager at ]init[ AG</p>
     </div>
   </div>
 </div>
