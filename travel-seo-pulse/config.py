@@ -17,7 +17,7 @@ if _env_file.exists():
 
 # ── Anthropic API ──────────────────────────────────────────────
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
-ANTHROPIC_MODEL = "claude-sonnet-4-20250514"
+ANTHROPIC_MODEL = "claude-sonnet-4-6"
 
 # ── Substack ───────────────────────────────────────────────────
 # To get your cookie:
