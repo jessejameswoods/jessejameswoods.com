@@ -183,14 +183,18 @@ def test_transform_adds_noindex_and_chrome():
 
 # ---- part 2: shared chrome ----
 
-def test_chrome_has_wordmark_identity_and_nav():
-    assert 'href="https://www.travelsearchpulse.com"' in CHROME_HTML
+def test_chrome_mirrors_main_site_masthead():
+    # real logo icon + wordmark linking home
+    assert '<img src="/tsp-icon.png"' in CHROME_HTML
     assert ">Travel Search Pulse<" in CHROME_HTML
-    assert ">Daily<" in CHROME_HTML
-    assert ">Essays<" in CHROME_HTML
+    assert 'href="https://www.travelsearchpulse.com"' in CHROME_HTML
+    # same five tabs as the Substack site, same order, Daily active -> "/"
+    tabs = re.findall(r'<a[^>]*class="[^"]*tsp-tab[^"]*"[^>]*>([^<]+)</a>', CHROME_HTML)
+    assert tabs == ["Home", "Notes", "Daily", "Archive", "About"]
+    assert '<a class="tsp-tab tsp-tab-active" href="/">Daily</a>' in CHROME_HTML
+    assert 'href="https://www.travelsearchpulse.com/notes"' in CHROME_HTML
+    assert 'href="https://www.travelsearchpulse.com/archive"' in CHROME_HTML
     assert 'href="https://www.travelsearchpulse.com/about"' in CHROME_HTML
-    assert ">About<" in CHROME_HTML
-    assert '"/"' in CHROME_HTML and ">Archive<" in CHROME_HTML
 
 
 def test_inject_chrome_is_idempotent():
@@ -222,14 +226,15 @@ def test_extract_story_headlines_empty_on_malformed():
     assert extract_story_headlines("<html><body>nothing</body></html>") == []
 
 
-def test_render_index_cards_have_date_lead_and_excerpt(output_dir):
+def test_render_index_card_title_is_brand_plus_date(output_dir):
     briefs = discover_briefs(output_dir)
     html = render_index(briefs)
     assert 'href="newsletter-2026-07-10.html"' in html
-    assert "July 10, 2026" in html
-    assert "Lead Story Headline — With An Em Dash" in html  # card title
-    assert "Second Story Headline" in html                  # excerpt
-    assert "Fourth Story Headline" in html                  # excerpt end
+    assert ('<span class="tsp-card-title">Travel Search Pulse Daily - '
+            "July 10, 2026</span>") in html
+    # top story headlines land in the excerpt instead
+    assert "Lead Story Headline — With An Em Dash" in html
+    assert "Fourth Story Headline" in html
     assert "Fifth Story Headline" not in html               # beyond top 4
     # newest first
     assert html.index("newsletter-2026-07-10.html") < html.index(
@@ -246,7 +251,7 @@ def test_render_index_falls_back_gracefully_without_headlines(tmp_path):
     )
     html = render_index(discover_briefs(d))
     assert 'href="newsletter-2026-06-01.html"' in html
-    assert "June 1, 2026" in html
+    assert "Travel Search Pulse Daily - June 1, 2026" in html
 
 
 # ---- part 4: intro copy ----
@@ -296,3 +301,40 @@ def test_build_site_rerun_is_idempotent(output_dir, tmp_path):
     copied = (webroot / "newsletter-2026-07-10.html").read_text(encoding="utf-8")
     assert copied.count('class="tsp-masthead-inner"') == 1
     assert copied.count('<meta name="robots" content="noindex">') == 1
+
+
+# ---- byline author link + schema ----
+
+def test_transform_links_byline_to_author_page():
+    out = transform_brief(SAMPLE_HTML, "July 10, 2026")
+    assert ('By <a href="https://www.travelsearchpulse.com/about">'
+            "Jesse James Woods</a>") in out
+
+
+def test_transform_injects_author_schema_once():
+    out = transform_brief(SAMPLE_HTML, "July 10, 2026")
+    assert out.count('application/ld+json') == 1
+    assert '"@type": "Person"' in out
+    assert '"name": "Jesse James Woods"' in out
+    assert '"url": "https://www.travelsearchpulse.com/about"' in out
+    assert '"datePublished": "2026-07-10"' in out
+    # idempotent
+    again = transform_brief(out, "July 10, 2026")
+    assert again.count('application/ld+json') == 1
+
+
+def test_build_site_copies_icon_when_present(output_dir, tmp_path, monkeypatch):
+    import build_brief_site as b
+    icon_src = tmp_path / "icon.png"
+    icon_src.write_bytes(b"\x89PNG-fake")
+    monkeypatch.setattr(b, "ICON_SOURCE", str(icon_src))
+    webroot = tmp_path / "webroot"
+    b.build_site(output_dir, webroot)
+    assert (webroot / "tsp-icon.png").read_bytes() == b"\x89PNG-fake"
+
+
+def test_build_site_survives_missing_icon(output_dir, tmp_path, monkeypatch):
+    import build_brief_site as b
+    monkeypatch.setattr(b, "ICON_SOURCE", str(tmp_path / "nope.png"))
+    webroot = tmp_path / "webroot"
+    assert b.build_site(output_dir, webroot) == 3
