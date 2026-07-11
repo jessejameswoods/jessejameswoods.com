@@ -101,7 +101,7 @@ MAX_STORIES_PER_SOURCE = 4  # Force source diversity — no single publisher flo
 _weekday = datetime.now().weekday()
 HOURS_LOOKBACK = 74 if _weekday == 0 else 26  # Monday=0
 TODAY = datetime.now().strftime("%B %d, %Y")
-NEWSLETTER_TITLE = f"Travel SEO Pulse — {TODAY}"
+NEWSLETTER_TITLE = f"Travel Search Pulse Daily - {TODAY}"
 NEWSLETTER_SUBTITLE = "The daily briefing for people who care about search in travel."
 
 # ── Email Settings ─────────────────────────────────────────────

@@ -153,7 +153,7 @@ def md_to_html(markdown_text: str) -> str:
     return html
 
 
-def generate_preview_html(newsletter_md: str, title: str = "Travel SEO Pulse") -> str:
+def generate_preview_html(newsletter_md: str, title: str = "Travel Search Pulse Daily") -> str:
     """Convert newsletter markdown to styled HTML."""
     content_html = md_to_html(newsletter_md)
     return HTML_TEMPLATE.format(title=title, content=content_html)

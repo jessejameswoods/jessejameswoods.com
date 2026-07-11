@@ -32,7 +32,7 @@ def _prepare_markdown_for_substack(markdown_content: str) -> str:
 
     # Strip the footer (duplicate of what Substack shows)
     cleaned = re.sub(
-        r'\n\*Travel SEO Pulse by Jesse James Woods.*$',
+        r'\n\*Travel Search Pulse Daily by Jesse James Woods.*$',
         '',
         cleaned,
         flags=re.DOTALL

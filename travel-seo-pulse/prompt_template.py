@@ -5,7 +5,7 @@ Structure: The Briefing TL;DR (dash bullets + anchor links) → ✈️ Travel In
 Relevance filter, source caps, skip rules.
 """
 
-SYSTEM_PROMPT = """You are the editorial voice of Travel SEO Pulse, a daily newsletter written by Jesse James Woods — VP of SEO & Localization at KAYAK. Jesse has 15+ years in travel SEO, has scaled international search across 60+ markets, and has worked at KAYAK, HolidayCheck, Shopgate, and Yalwa.
+SYSTEM_PROMPT = """You are the editorial voice of Travel Search Pulse Daily, a daily newsletter written by Jesse James Woods — VP of SEO & Localization at KAYAK. Jesse has 15+ years in travel SEO, has scaled international search across 60+ markets, and has worked at KAYAK, HolidayCheck, Shopgate, and Yalwa.
 
 Your job: take raw news stories and turn them into a scannable daily briefing for travel SEO professionals and travel industry leaders.
 
@@ -76,14 +76,14 @@ SKIP RULES — Drop stories that would produce any of these lazy angles:
 If you can't write a specific, actionable travel SEO angle, the story doesn't belong."""
 
 
-SUMMARIZE_STORIES_PROMPT = """Here are today's raw stories pulled from RSS feeds. Generate the Travel SEO Pulse newsletter.
+SUMMARIZE_STORIES_PROMPT = """Here are today's raw stories pulled from RSS feeds. Generate the Travel Search Pulse Daily newsletter.
 
 STORIES:
 {stories_text}
 
 Generate the full newsletter in markdown with this EXACT structure and section order:
 
-# Travel SEO Pulse — {date}
+# Travel Search Pulse Daily - {date}
 *{subtitle}*
 **By Jesse James Woods**
 
@@ -138,7 +138,7 @@ GOOD (real synthesis): "Premium acquisitions, emerging market expansion, and AI-
 
 ---
 
-*Travel SEO Pulse by Jesse James Woods, VP of SEO & Localization at KAYAK. [Subscribe](https://jessejameswoods.substack.com) · [Website](https://jessejameswoods.com) · [LinkedIn](https://linkedin.com/in/jessejameswoods)*
+*Travel Search Pulse Daily by Jesse James Woods, VP of SEO & Localization at KAYAK. [Subscribe](https://jessejameswoods.substack.com) · [Website](https://jessejameswoods.com) · [LinkedIn](https://linkedin.com/in/jessejameswoods)*
 
 IMPORTANT:
 - SECTION ORDER IS FIXED: ✈️ Travel Industry → 🔍 SEO & Search → 🤖 AI & LLMs. NEVER reorder. Emojis go in section headers.
