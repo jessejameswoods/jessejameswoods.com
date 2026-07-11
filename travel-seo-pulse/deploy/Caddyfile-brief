@@ -1,0 +1,18 @@
+# Caddyfile for the Travel Search Pulse brief archive
+# Deployed at /etc/caddy/Caddyfile on the VPS (62.238.29.101)
+#
+# THE single most important requirement: every response on this vhost
+# carries X-Robots-Tag: noindex, including error responses.
+# robots.txt (served from the webroot) ALLOWS crawling so Google can
+# see the noindex header. Do not add a robots.txt Disallow.
+
+brief.travelsearchpulse.com {
+	root * /var/www/brief
+	encode gzip
+	header X-Robots-Tag noindex
+	file_server
+	handle_errors {
+		header X-Robots-Tag noindex
+		respond "{err.status_code} {err.status_text}"
+	}
+}

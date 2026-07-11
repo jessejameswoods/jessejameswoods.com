@@ -1,0 +1,14 @@
+# Rebuilds the static archive at /var/www/brief from pipeline output.
+# Installed at /etc/systemd/system/brief-site-build.service
+# Triggered by brief-site-build.path when the output directory changes.
+# Deployed copy of the script lives at /usr/local/bin/build_brief_site.py
+# (versioned copy in repo at travel-seo-pulse/deploy/, same pattern as
+# travel-seo-pulse-run).
+[Unit]
+Description=Rebuild brief.travelsearchpulse.com static archive
+
+[Service]
+Type=oneshot
+User=pulse
+Group=pulse
+ExecStart=/usr/bin/python3 /usr/local/bin/build_brief_site.py

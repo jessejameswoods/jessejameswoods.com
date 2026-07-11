@@ -1,0 +1,13 @@
+# Watches the pipeline output directory; rebuilds the brief archive
+# whenever a new brief lands. Decoupled from the publish path on purpose:
+# no retries, no coupling to main.py (see Apr 15 duplicate-post incident).
+# Installed at /etc/systemd/system/brief-site-build.path
+[Unit]
+Description=Watch Travel SEO Pulse output for new briefs
+
+[Path]
+PathModified=/opt/travel-seo-pulse/travel-seo-pulse/output
+Unit=brief-site-build.service
+
+[Install]
+WantedBy=multi-user.target
