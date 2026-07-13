@@ -347,8 +347,8 @@ def test_transform_injects_hero_after_byline():
     assert '<img src="/daily-brief-hero.jpg"' in out
     assert 'class="tsp-hero"' in out
     assert 'alt="Travel Search Pulse Daily"' in out
-    # placed after the byline, before the TL;DR content
-    assert out.index("By ") < out.index("tsp-hero") < out.index("The Briefing TL;DR")
+    # placed directly after the H1 title, before subtitle/byline (Indig layout)
+    assert out.index("</h1>") < out.index("tsp-hero") < out.index("By ")
 
 
 def test_transform_hero_is_idempotent():

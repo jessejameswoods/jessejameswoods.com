@@ -183,15 +183,10 @@ HERO_HTML = (
 
 def inject_hero(html):
     """Recurring brand hero image at the top of every post (Indig
-    precedent), placed after the byline block, before the first <hr>.
+    precedent): directly after the H1 title, before subtitle/byline.
     Idempotent (marker: tsp-hero)."""
     if "tsp-hero" in html:
         return html
-    byline = re.search(r"<p><strong>By .*?</strong></p>", html)
-    if byline:
-        i = byline.end()
-        return html[:i] + "\n" + HERO_HTML + html[i:]
-    # Fallback: right after the first <h1> block's closing tag
     h1 = re.search(r"</h1>", html)
     if h1:
         i = h1.end()
