@@ -5,9 +5,38 @@ Uses python-substack to create a draft, then publish + send email.
 
 import logging
 import re
+from datetime import datetime, timedelta, timezone
+
 from config import SUBSTACK_COOKIE, SUBSTACK_PUBLICATION, SUBSTACK_USER_ID, SEND_EMAIL, AUDIENCE
 
 logger = logging.getLogger(__name__)
+
+# The Substack web post is unpublished shortly after the email goes out
+# (publish-then-unpublish design), so every emailed link must give
+# readers a path to the permanent archive copy instead.
+ARCHIVE_BASE = "https://brief.travelsearchpulse.com"
+
+
+def _archive_url_for_today() -> str:
+    """Deterministic archive URL for today's brief. Date derived from
+    Europe/Berlin (UTC+2 at the 06:00 summer publish; UTC+1 in winter is
+    still the same calendar date at publish time) rather than server-local
+    time, so a misconfigured VPS timezone can't point at the wrong day."""
+    berlin_now = datetime.now(timezone.utc) + timedelta(hours=2)
+    return f"{ARCHIVE_BASE}/newsletter-{berlin_now.strftime('%Y-%m-%d')}.html"
+
+
+def _add_archive_links(markdown_content: str, archive_url: str) -> str:
+    """Prepend and append 'read in browser' links pointing at the
+    permanent archive copy. Applied AFTER _prepare_markdown_for_substack
+    (which strips the on-disk footer); this function does not modify the
+    body between the links. No em or en dashes in injected copy."""
+    top = f"*[Read this brief in your browser]({archive_url})*"
+    bottom = (
+        f"*[Read this brief in your browser]({archive_url}) · "
+        f"[Full archive]({ARCHIVE_BASE}/)*"
+    )
+    return f"{top}\n\n{markdown_content.strip()}\n\n---\n\n{bottom}"
 
 
 def _prepare_markdown_for_substack(markdown_content: str) -> str:
@@ -59,7 +88,10 @@ def _markdown_to_draft_body(title: str, subtitle: str, markdown_content: str) ->
     return {
         "draft_title": title,
         "draft_subtitle": subtitle,
-        "draft_body": _prepare_markdown_for_substack(markdown_content),
+        "draft_body": _add_archive_links(
+            _prepare_markdown_for_substack(markdown_content),
+            _archive_url_for_today(),
+        ),
         "draft_bylines": [{"id": int(SUBSTACK_USER_ID), "is_guest": False}],
         "type": "newsletter",
         "audience": AUDIENCE,
