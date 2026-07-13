@@ -100,14 +100,14 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel Search Pulse Daily Brief</title>
+<title>Travel Search Pulse Daily</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:#FAF7F2;color:#1a1a1a;line-height:1.7;font-size:16px}
 .container{max-width:680px;margin:0 auto;padding:2rem 1.5rem}
 h1{font-family:'DM Serif Display',serif;font-size:2rem;margin-bottom:.75rem}
-.tsp-accent{color:#C2532E}
+.tsp-chip{background:#C2532E;color:#FAF7F2;padding:.04em .35em .1em;border-radius:12px;white-space:nowrap}
 .tsp-intro{color:#6B6560;font-size:.95rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid #E8E3DD}
 .tsp-intro a{color:#C2532E;text-decoration:none}
 .tsp-intro a:hover{opacity:.8}
@@ -123,7 +123,7 @@ __CHROME_CSS__
 <body>
 __CHROME_HTML__
 <div class="container">
-<h1>Travel Search Pulse <span class="tsp-accent">Daily Brief</span></h1>
+<h1>Travel Search Pulse <span class="tsp-chip">Daily</span></h1>
 __INTRO__
 <ul class="tsp-cards">
 __ENTRIES__

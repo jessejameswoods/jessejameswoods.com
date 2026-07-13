@@ -376,10 +376,12 @@ def test_build_site_survives_missing_hero(output_dir, tmp_path, monkeypatch):
 
 # ---- index header brand treatment (Jesse, Jul 13) ----
 
-def test_index_h1_is_branded_with_accented_daily_brief(output_dir):
+def test_index_h1_is_product_name_with_daily_chip(output_dir):
+    # One name per thing: the product is "Travel Search Pulse Daily";
+    # "brief(ing)" is a format descriptor that lives in the subtitle only.
     html = render_index(discover_briefs(output_dir))
     assert ('<h1>Travel Search Pulse '
-            '<span class="tsp-accent">Daily Brief</span></h1>') in html
-    assert ".tsp-accent{color:#C2532E}" in html
-    assert "<title>Travel Search Pulse Daily Brief</title>" in html
-    assert ">The Daily Brief<" not in html
+            '<span class="tsp-chip">Daily</span></h1>') in html
+    assert "background:#C2532E" in html and "border-radius:12px" in html
+    assert "<title>Travel Search Pulse Daily</title>" in html
+    assert "Daily Brief" not in html
