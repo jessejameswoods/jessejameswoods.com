@@ -59,11 +59,20 @@ def test_unpublish_success_200_with_dict_body():
     s = FakeSession(post_responses=[FakeResponse(200, {"id": 123, "is_published": False})])
     body = unpublish_post(s, API, 123)
     assert body["id"] == 123
-    assert s.post_calls[0][0] == f"{API}/posts/123/unpublish"
+    assert s.post_calls[0][0] == f"{API}/drafts/123/unpublish"
     assert s.post_calls[0][1].get("json") == {}
 
 
-def test_unpublish_200_with_unparseable_body_is_failure():
+def test_unpublish_200_with_empty_body_is_success():
+    # Observed live 2026-07-13: the drafts unpublish endpoint returns
+    # HTTP 200 with an empty body. The 404 verification remains the
+    # authoritative success gate.
+    s = FakeSession(post_responses=[FakeResponse(200, None, text="")])
+    assert unpublish_post(s, API, 123) == {}
+
+
+def test_unpublish_200_with_html_body_is_failure():
+    # 200 with an HTML page (e.g. a login screen) is NOT success
     s = FakeSession(post_responses=[FakeResponse(200, None, text="<html>login</html>")])
     with pytest.raises(UnpublishError):
         unpublish_post(s, API, 123)

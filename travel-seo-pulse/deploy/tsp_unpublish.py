@@ -51,12 +51,22 @@ class UnpublishError(Exception):
 # ---------- core, dependency-injected (tested) ----------
 
 def unpublish_post(session, api_base, post_id):
-    """One attempt, no retry. 200 + sane JSON dict = success."""
-    resp = session.post(f"{api_base}/posts/{post_id}/unpublish", json={})
+    """One attempt, no retry.
+
+    Endpoint verified live 2026-07-13: POST {api}/drafts/{id}/unpublish
+    returns HTTP 200 with an EMPTY body on success. (The /posts/{id}/
+    unpublish variant from the JPres repo returns 404 - it does not
+    exist on this publication.) A 200 with an empty body is therefore
+    success; the mandatory 404 verification downstream remains the
+    authoritative gate.
+    """
+    resp = session.post(f"{api_base}/drafts/{post_id}/unpublish", json={})
     if resp.status_code != 200:
         raise UnpublishError(
             f"unpublish returned HTTP {resp.status_code}: {resp.text[:200]}"
         )
+    if not resp.text.strip():
+        return {}
     try:
         body = resp.json()
     except ValueError:
