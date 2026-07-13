@@ -184,15 +184,29 @@ def test_transform_adds_noindex_and_chrome():
 # ---- part 2: shared chrome ----
 
 def test_chrome_mirrors_main_site_masthead():
-    # real logo icon + wordmark linking home
+    # www layout: logo left corner, name centered, Subscribe top-right
     assert '<img src="/tsp-icon.png"' in CHROME_HTML
-    assert ">Travel Search Pulse<" in CHROME_HTML
-    assert 'href="https://www.travelsearchpulse.com"' in CHROME_HTML
+    assert 'class="tsp-name"' in CHROME_HTML and ">Travel Search Pulse<" in CHROME_HTML
+    assert ('<a class="tsp-subscribe" '
+            'href="https://www.travelsearchpulse.com/subscribe">Subscribe</a>') in CHROME_HTML
     # same five tabs as the Substack site, same order, Daily active -> "/"
     tabs = re.findall(r'<a[^>]*class="[^"]*tsp-tab[^"]*"[^>]*>([^<]+)</a>', CHROME_HTML)
     assert tabs == ["Home", "Notes", "Daily", "Archive", "About"]
     assert '<a class="tsp-tab tsp-tab-active" href="/">Daily</a>' in CHROME_HTML
     assert 'href="https://www.travelsearchpulse.com/notes"' in CHROME_HTML
+
+
+def test_chrome_matches_www_typography_and_favicon():
+    # www renders headings in Spectral + UI in the system sans stack
+    assert "family=Spectral" in CHROME_CSS
+    assert "'Spectral'" in CHROME_CSS
+    assert "-apple-system" in CHROME_CSS
+    # mobile title clamp so long brand-date H1s wrap like Substack mobile
+    assert "clamp(" in CHROME_CSS
+    # exact favicon assets that www serves
+    assert '<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">' in CHROME_CSS
+    assert '<link rel="apple-touch-icon" href="/apple-touch-icon.png">' in CHROME_CSS
+    assert 'href="/tsp-icon.png">' not in CHROME_CSS  # old favicon link gone
     assert 'href="https://www.travelsearchpulse.com/archive"' in CHROME_HTML
     assert 'href="https://www.travelsearchpulse.com/about"' in CHROME_HTML
 
@@ -305,9 +319,10 @@ def test_build_site_rerun_is_idempotent(output_dir, tmp_path):
 
 # ---- byline author link + schema ----
 
-def test_transform_links_byline_to_author_page():
+def test_transform_links_byline_to_substack_profile():
+    # consistency with Substack post bylines (they link the author profile)
     out = transform_brief(SAMPLE_HTML, "July 10, 2026")
-    assert ('By <a href="https://www.travelsearchpulse.com/about">'
+    assert ('By <a href="https://substack.com/@jessejameswoods">'
             "Jesse James Woods</a>") in out
 
 
@@ -316,7 +331,7 @@ def test_transform_injects_author_schema_once():
     assert out.count('application/ld+json') == 1
     assert '"@type": "Person"' in out
     assert '"name": "Jesse James Woods"' in out
-    assert '"url": "https://www.travelsearchpulse.com/about"' in out
+    assert '"url": "https://substack.com/@jessejameswoods"' in out
     assert '"datePublished": "2026-07-10"' in out
     # idempotent
     again = transform_brief(out, "July 10, 2026")
@@ -385,3 +400,43 @@ def test_index_h1_is_product_name_with_daily_chip(output_dir):
     assert "background:#C2532E" in html and "border-radius:12px" in html
     assert "<title>Travel Search Pulse Daily</title>" in html
     assert "Daily Brief" not in html
+
+
+# ---- recent briefs block + favicon assets (Jesse, Jul 13 consistency pass) ----
+
+def test_render_recent_excludes_self_and_caps_at_five(tmp_path):
+    from build_brief_site import render_recent
+    d = tmp_path / "o"; d.mkdir()
+    names = [f"newsletter-2026-06-{day:02d}.html" for day in range(1, 9)]
+    briefs = [d / n for n in names]
+    html = render_recent(sorted(briefs, key=lambda p: p.name, reverse=True),
+                         "newsletter-2026-06-08.html")
+    assert "newsletter-2026-06-08.html" not in html   # self excluded
+    assert html.count("<li>") == 5                    # capped
+    assert "newsletter-2026-06-07.html" in html       # newest other first
+    assert 'href="/"' in html and ">Full archive<" in html
+    assert "Recent briefs" in html
+
+
+def test_build_site_appends_recent_before_footer(output_dir, tmp_path):
+    webroot = tmp_path / "webroot"
+    build_site(output_dir, webroot)
+    copied = (webroot / "newsletter-2026-07-10.html").read_text(encoding="utf-8")
+    assert "Recent briefs" in copied
+    assert 'href="newsletter-2026-05-01.html"' in copied
+    assert "newsletter-2026-07-10.html\"" not in copied.split("Recent briefs")[1]
+    # recent block sits before the footer byline paragraph
+    assert copied.index("Recent briefs") < copied.index(
+        "Travel Search Pulse Daily by Jesse James Woods.")
+
+
+def test_build_site_copies_favicon_assets(output_dir, tmp_path, monkeypatch):
+    import build_brief_site as b
+    fav = tmp_path / "f32.png"; fav.write_bytes(b"\x89fav")
+    touch = tmp_path / "t180.png"; touch.write_bytes(b"\x89touch")
+    monkeypatch.setattr(b, "FAVICON_SOURCE", str(fav))
+    monkeypatch.setattr(b, "APPLE_ICON_SOURCE", str(touch))
+    webroot = tmp_path / "webroot"
+    b.build_site(output_dir, webroot)
+    assert (webroot / "favicon.png").read_bytes() == b"\x89fav"
+    assert (webroot / "apple-touch-icon.png").read_bytes() == b"\x89touch"

@@ -32,10 +32,13 @@ DEFAULT_SOURCE = "/opt/travel-seo-pulse/travel-seo-pulse/output"
 DEFAULT_WEBROOT = "/var/www/brief"
 ICON_SOURCE = "/usr/local/share/travel-search-pulse/tsp-icon.png"
 HERO_SOURCE = "/usr/local/share/travel-search-pulse/daily-brief-hero.jpg"
+FAVICON_SOURCE = "/usr/local/share/travel-search-pulse/favicon-32.png"
+APPLE_ICON_SOURCE = "/usr/local/share/travel-search-pulse/apple-touch-icon.png"
 
 BRAND = "Travel Search Pulse Daily"
 WWW = "https://www.travelsearchpulse.com"
-AUTHOR_URL = f"{WWW}/about"
+# Substack post bylines link the author profile; we mirror that
+AUTHOR_URL = "https://substack.com/@jessejameswoods"
 
 BRIEF_RE = re.compile(r"^newsletter-(\d{4})-(\d{2})-(\d{2})\.html$")
 NOINDEX_META = '<meta name="robots" content="noindex">'
@@ -51,23 +54,45 @@ INTRO_HTML = (
     "configured, from his curated source list.</p>"
 )
 
-# Masthead mirrors the main Substack site: pulse icon + dark bold sans
-# wordmark, centered, with the same five tabs in the same order.
-CHROME_CSS = """<link rel="icon" href="/tsp-icon.png">
+# Masthead mirrors the main Substack site's layout: logo in the left
+# corner, publication name centered (Spectral, the www heading font),
+# Subscribe button top-right, tab row below. Favicons are the exact
+# assets www serves. System sans stack for UI matches www; headings get
+# Spectral via override with a mobile clamp so long brand-date titles
+# wrap like Substack mobile.
+SYSTEM_SANS = ('-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif')
+
+CHROME_CSS = """<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@600;700&display=swap" rel="stylesheet">
 <style>/* tsp-chrome */
 .tsp-masthead{background:#FAF7F2;border-bottom:1px solid #E8E3DD}
-.tsp-masthead-inner{max-width:680px;margin:0 auto;padding:1rem 1.5rem 0}
-.tsp-brand{display:flex;align-items:center;justify-content:center;gap:.55rem;text-decoration:none}
-.tsp-icon{width:28px;height:28px;border-radius:6px;display:block}
-.tsp-wordmark{font-family:'Inter',sans-serif;font-size:1.2rem;font-weight:700;color:#1a1a1a}
-.tsp-tabs{display:flex;justify-content:center;gap:1.5rem;margin-top:.7rem;flex-wrap:wrap}
-.tsp-tab{font-family:'Inter',sans-serif;font-size:.92rem;font-weight:500;color:#6B6560;text-decoration:none;padding:.35rem 0 .55rem;border-bottom:2px solid transparent}
+.tsp-masthead-inner{max-width:1000px;margin:0 auto;padding:.8rem 1rem 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.tsp-brand{justify-self:start;display:flex;align-items:center;text-decoration:none}
+.tsp-icon{width:32px;height:32px;display:block}
+.tsp-name{justify-self:center;font-family:'Spectral',serif;font-size:1.3rem;font-weight:700;color:#1a1a1a;text-decoration:none;white-space:nowrap}
+.tsp-subscribe{justify-self:end;font-family:SYSFONT;font-size:.88rem;font-weight:600;color:#FFFFFF;background:#C2532E;padding:.42rem 1rem;border-radius:20px;text-decoration:none}
+.tsp-subscribe:hover{opacity:.9}
+.tsp-tabs{grid-column:1/-1;display:flex;justify-content:center;gap:1.5rem;margin-top:.55rem;flex-wrap:wrap}
+.tsp-tab{font-family:SYSFONT;font-size:.92rem;font-weight:500;color:#6B6560;text-decoration:none;padding:.35rem 0 .55rem;border-bottom:2px solid transparent}
 .tsp-tab:hover{color:#1a1a1a}
 .tsp-tab-active{color:#1a1a1a;font-weight:600;border-bottom:2px solid #1a1a1a}
-</style>"""
+/* typography parity with www: Spectral headings, responsive title */
+h1,h2,h3,.tsp-card-title{font-family:'Spectral',serif !important}
+h1{font-size:clamp(1.45rem,5.5vw,2.1rem) !important;line-height:1.3 !important}
+.tsp-recent{margin-top:2rem;padding-top:1.25rem;border-top:1px solid #E8E3DD}
+.tsp-recent h3{font-size:1.05rem;margin-bottom:.6rem}
+.tsp-recent ul{list-style:none;padding:0}
+.tsp-recent li{margin-bottom:.4rem}
+.tsp-recent a{color:#C2532E;text-decoration:none;font-family:SYSFONT;font-size:.95rem}
+.tsp-recent a:hover{opacity:.8}
+@media (max-width:640px){.tsp-name{font-size:1.05rem}.tsp-subscribe{font-size:.78rem;padding:.35rem .7rem}.tsp-tabs{gap:1rem}}
+</style>""".replace("SYSFONT", SYSTEM_SANS)
 
 CHROME_HTML = """<header class="tsp-masthead"><div class="tsp-masthead-inner">
-<a class="tsp-brand" href="https://www.travelsearchpulse.com"><img src="/tsp-icon.png" alt="Travel Search Pulse" class="tsp-icon"><span class="tsp-wordmark">Travel Search Pulse</span></a>
+<a class="tsp-brand" href="https://www.travelsearchpulse.com"><img src="/tsp-icon.png" alt="Travel Search Pulse" class="tsp-icon"></a>
+<a class="tsp-name" href="https://www.travelsearchpulse.com">Travel Search Pulse</a>
+<a class="tsp-subscribe" href="https://www.travelsearchpulse.com/subscribe">Subscribe</a>
 <nav class="tsp-tabs"><a class="tsp-tab" href="https://www.travelsearchpulse.com">Home</a><a class="tsp-tab" href="https://www.travelsearchpulse.com/notes">Notes</a><a class="tsp-tab tsp-tab-active" href="/">Daily</a><a class="tsp-tab" href="https://www.travelsearchpulse.com/archive">Archive</a><a class="tsp-tab" href="https://www.travelsearchpulse.com/about">About</a></nav>
 </div></header>"""
 
@@ -80,7 +105,7 @@ SCHEMA_TEMPLATE = """<script type="application/ld+json">
   "author": {
     "@type": "Person",
     "name": "Jesse James Woods",
-    "url": "https://www.travelsearchpulse.com/about",
+    "url": "https://substack.com/@jessejameswoods",
     "sameAs": [
       "https://jessejameswoods.com",
       "https://linkedin.com/in/jessejameswoods"
@@ -205,9 +230,38 @@ def inject_author_schema(html, headline, iso_date):
     return html.replace("</head>", block + "\n</head>", 1)
 
 
-def transform_brief(html, label):
+def render_recent(briefs_newest_first, current_name, limit=5):
+    """'Recent briefs' block for the bottom of a post: up to `limit`
+    other briefs, newest first, plus the archive link."""
+    items = [p for p in briefs_newest_first if p.name != current_name][:limit]
+    lis = "\n".join(
+        f'<li><a href="{p.name}">{date_label(p.name)}</a></li>' for p in items
+    )
+    return (
+        '<div class="tsp-recent"><h3>Recent briefs</h3>\n'
+        f"<ul>\n{lis}\n</ul>\n"
+        '<p><a href="/">Full archive</a></p></div>'
+    )
+
+
+def inject_recent(html, recent_html):
+    """Place the recent-briefs block just before the footer byline
+    paragraph (which transform_brief has already rebranded). Idempotent
+    (marker: tsp-recent)."""
+    if not recent_html or "tsp-recent" in html:
+        return html
+    m = re.search(r"<p><em>Travel Search Pulse Daily by Jesse James Woods\.",
+                  html)
+    if m:
+        i = m.start()
+        return html[:i] + recent_html + "\n" + html[i:]
+    return html.replace("</body>", recent_html + "\n</body>", 1)
+
+
+def transform_brief(html, label, recent_html=""):
     """Rebrand branding surfaces of an archived brief, link the byline,
-    add author schema and chrome. Body content is left verbatim."""
+    add author schema, recent-briefs block, and chrome. Body content is
+    left verbatim."""
     canonical = f"{BRAND} - {label}"
     html = re.sub(r"<title>[^<]*</title>", f"<title>{canonical}</title>",
                   html, count=1)
@@ -237,6 +291,7 @@ def transform_brief(html, label):
         1,
     )
 
+    html = inject_recent(html, recent_html)
     html = inject_hero(html)
     html = inject_author_schema(html, canonical, _label_to_iso(label))
     html = inject_noindex(html)
@@ -303,7 +358,8 @@ def build_site(source_dir, webroot):
     briefs = discover_briefs(source_dir)
     for src in briefs:
         html = transform_brief(src.read_text(encoding="utf-8"),
-                               date_label(src.name))
+                               date_label(src.name),
+                               recent_html=render_recent(briefs, src.name))
         dest = webroot / src.name
         if not dest.exists() or dest.read_text(encoding="utf-8") != html:
             dest.write_text(html, encoding="utf-8")
@@ -317,6 +373,12 @@ def build_site(source_dir, webroot):
     hero = Path(HERO_SOURCE)
     if hero.is_file():
         shutil.copyfile(hero, webroot / "daily-brief-hero.jpg")
+    fav = Path(FAVICON_SOURCE)
+    if fav.is_file():
+        shutil.copyfile(fav, webroot / "favicon.png")
+    touch = Path(APPLE_ICON_SOURCE)
+    if touch.is_file():
+        shutil.copyfile(touch, webroot / "apple-touch-icon.png")
     return len(briefs)
 
 
