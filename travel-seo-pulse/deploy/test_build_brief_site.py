@@ -372,3 +372,14 @@ def test_build_site_survives_missing_hero(output_dir, tmp_path, monkeypatch):
     import build_brief_site as b
     monkeypatch.setattr(b, "HERO_SOURCE", str(tmp_path / "nope.jpg"))
     assert b.build_site(output_dir, tmp_path / "webroot") == 3
+
+
+# ---- index header brand treatment (Jesse, Jul 13) ----
+
+def test_index_h1_is_branded_with_accented_daily_brief(output_dir):
+    html = render_index(discover_briefs(output_dir))
+    assert ('<h1>Travel Search Pulse '
+            '<span class="tsp-accent">Daily Brief</span></h1>') in html
+    assert ".tsp-accent{color:#C2532E}" in html
+    assert "<title>Travel Search Pulse Daily Brief</title>" in html
+    assert ">The Daily Brief<" not in html
