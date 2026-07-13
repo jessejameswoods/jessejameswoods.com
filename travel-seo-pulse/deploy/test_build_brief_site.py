@@ -338,3 +338,37 @@ def test_build_site_survives_missing_icon(output_dir, tmp_path, monkeypatch):
     monkeypatch.setattr(b, "ICON_SOURCE", str(tmp_path / "nope.png"))
     webroot = tmp_path / "webroot"
     assert b.build_site(output_dir, webroot) == 3
+
+
+# ---- hero image (Jesse, Jul 13: recurring brand hero on every post, Indig precedent) ----
+
+def test_transform_injects_hero_after_byline():
+    out = transform_brief(SAMPLE_HTML, "July 10, 2026")
+    assert '<img src="/daily-brief-hero.jpg"' in out
+    assert 'class="tsp-hero"' in out
+    assert 'alt="Travel Search Pulse Daily"' in out
+    # placed after the byline, before the TL;DR content
+    assert out.index("By ") < out.index("tsp-hero") < out.index("The Briefing TL;DR")
+
+
+def test_transform_hero_is_idempotent():
+    once = transform_brief(SAMPLE_HTML, "July 10, 2026")
+    twice = inject_chrome(once)  # re-running injectors must not duplicate
+    from build_brief_site import inject_hero
+    assert inject_hero(once).count('class="tsp-hero"') == 1
+
+
+def test_build_site_copies_hero_when_present(output_dir, tmp_path, monkeypatch):
+    import build_brief_site as b
+    hero_src = tmp_path / "hero.jpg"
+    hero_src.write_bytes(b"\xff\xd8fakejpg")
+    monkeypatch.setattr(b, "HERO_SOURCE", str(hero_src))
+    webroot = tmp_path / "webroot"
+    b.build_site(output_dir, webroot)
+    assert (webroot / "daily-brief-hero.jpg").read_bytes() == b"\xff\xd8fakejpg"
+
+
+def test_build_site_survives_missing_hero(output_dir, tmp_path, monkeypatch):
+    import build_brief_site as b
+    monkeypatch.setattr(b, "HERO_SOURCE", str(tmp_path / "nope.jpg"))
+    assert b.build_site(output_dir, tmp_path / "webroot") == 3

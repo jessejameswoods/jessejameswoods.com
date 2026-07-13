@@ -31,12 +31,15 @@ def _add_archive_links(markdown_content: str, archive_url: str) -> str:
     permanent archive copy. Applied AFTER _prepare_markdown_for_substack
     (which strips the on-disk footer); this function does not modify the
     body between the links. No em or en dashes in injected copy."""
+    hero = (
+        f"![Travel Search Pulse Daily]({ARCHIVE_BASE}/daily-brief-hero.jpg)"
+    )
     top = f"*[Read this brief in your browser]({archive_url})*"
     bottom = (
         f"*[Read this brief in your browser]({archive_url}) · "
         f"[Full archive]({ARCHIVE_BASE}/)*"
     )
-    return f"{top}\n\n{markdown_content.strip()}\n\n---\n\n{bottom}"
+    return f"{hero}\n\n{top}\n\n{markdown_content.strip()}\n\n---\n\n{bottom}"
 
 
 def _prepare_markdown_for_substack(markdown_content: str) -> str:

@@ -27,9 +27,12 @@ RAW = """# Travel Search Pulse Daily - July 14, 2026
 URL = "https://brief.travelsearchpulse.com/newsletter-2026-07-14.html"
 
 
-def test_top_link_is_first_line():
+def test_hero_image_is_first_line_then_browser_link():
     out = _add_archive_links("body text", URL)
-    assert out.splitlines()[0] == f"*[Read this brief in your browser]({URL})*"
+    lines = out.splitlines()
+    assert lines[0] == ("![Travel Search Pulse Daily]"
+                        "(https://brief.travelsearchpulse.com/daily-brief-hero.jpg)")
+    assert lines[2] == f"*[Read this brief in your browser]({URL})*"
 
 
 def test_bottom_block_has_archive_and_index_links():
@@ -54,7 +57,7 @@ def test_composes_with_strip_function():
     stripped = _prepare_markdown_for_substack(RAW)
     assert "KAYAK" not in stripped  # old footer gone
     out = _add_archive_links(stripped, URL)
-    assert out.splitlines()[0].startswith("*[Read this brief in your browser]")
+    assert out.splitlines()[0].startswith("![Travel Search Pulse Daily]")
     assert "## The Briefing TL;DR" in out
     assert "KAYAK" not in out
 

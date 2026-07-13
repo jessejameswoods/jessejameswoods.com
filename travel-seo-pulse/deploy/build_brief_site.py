@@ -31,6 +31,7 @@ from pathlib import Path
 DEFAULT_SOURCE = "/opt/travel-seo-pulse/travel-seo-pulse/output"
 DEFAULT_WEBROOT = "/var/www/brief"
 ICON_SOURCE = "/usr/local/share/travel-search-pulse/tsp-icon.png"
+HERO_SOURCE = "/usr/local/share/travel-search-pulse/daily-brief-hero.jpg"
 
 BRAND = "Travel Search Pulse Daily"
 WWW = "https://www.travelsearchpulse.com"
@@ -173,6 +174,31 @@ def inject_chrome(html):
     return html
 
 
+HERO_HTML = (
+    '<p class="tsp-hero-wrap"><img src="/daily-brief-hero.jpg" '
+    'alt="Travel Search Pulse Daily" class="tsp-hero" '
+    'style="width:100%;height:auto;border-radius:6px;margin:1rem 0"></p>'
+)
+
+
+def inject_hero(html):
+    """Recurring brand hero image at the top of every post (Indig
+    precedent), placed after the byline block, before the first <hr>.
+    Idempotent (marker: tsp-hero)."""
+    if "tsp-hero" in html:
+        return html
+    byline = re.search(r"<p><strong>By .*?</strong></p>", html)
+    if byline:
+        i = byline.end()
+        return html[:i] + "\n" + HERO_HTML + html[i:]
+    # Fallback: right after the first <h1> block's closing tag
+    h1 = re.search(r"</h1>", html)
+    if h1:
+        i = h1.end()
+        return html[:i] + "\n" + HERO_HTML + html[i:]
+    return html
+
+
 def inject_author_schema(html, headline, iso_date):
     """NewsArticle JSON-LD with Person author. Idempotent."""
     if "application/ld+json" in html:
@@ -215,6 +241,7 @@ def transform_brief(html, label):
         1,
     )
 
+    html = inject_hero(html)
     html = inject_author_schema(html, canonical, _label_to_iso(label))
     html = inject_noindex(html)
     html = inject_chrome(html)
@@ -291,6 +318,9 @@ def build_site(source_dir, webroot):
     icon = Path(ICON_SOURCE)
     if icon.is_file():
         shutil.copyfile(icon, webroot / "tsp-icon.png")
+    hero = Path(HERO_SOURCE)
+    if hero.is_file():
+        shutil.copyfile(hero, webroot / "daily-brief-hero.jpg")
     return len(briefs)
 
 
