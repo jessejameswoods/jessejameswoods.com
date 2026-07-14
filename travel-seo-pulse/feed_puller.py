@@ -20,6 +20,74 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_WEIGHT = 2
 
+# ── Cross-day dedup ─────────────────────────────────────────────
+# The pipeline had no memory of previous briefs, so publishers that
+# re-post an article under a new URL with a fresh pubDate got the same
+# story into consecutive briefs (5 occurrences Apr-Jul 2026, all with
+# different URLs). The archive markdown on disk is the memory: filter
+# candidates that match a recent brief by URL or by normalized-title
+# containment. Length guard stops short generic titles false-matching.
+SEEN_DAYS = 14
+MIN_TITLE_MATCH_LEN = 30
+STORY_LINK_RE = re.compile(r"\*\*\[([^\]]+)\]\(([^)]+)\)\*\*")
+
+
+def normalize_title(title: str) -> str:
+    """Lowercase, strip everything but alphanumerics and spaces."""
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9 ]", "", title.lower())).strip()
+
+
+def load_seen_stories(output_dir: str = "output", days: int = SEEN_DAYS,
+                      now: datetime = None):
+    """Parse the last `days` of newsletter markdown for story links
+    already covered. Returns (urls, normalized_titles). Never raises:
+    dedup must not be able to break the feed pull."""
+    from pathlib import Path
+
+    urls, titles = set(), set()
+    try:
+        now = now or datetime.now(timezone.utc)
+        cutoff = now - timedelta(days=days)
+        for p in sorted(Path(output_dir).glob("newsletter-*.md")):
+            m = re.match(r"newsletter-(\d{4}-\d{2}-\d{2})\.md$", p.name)
+            if not m:
+                continue
+            try:
+                file_date = datetime.strptime(
+                    m.group(1), "%Y-%m-%d").replace(tzinfo=timezone.utc)
+            except ValueError:
+                continue
+            if file_date < cutoff:
+                continue
+            try:
+                text = p.read_text(encoding="utf-8")
+            except OSError:
+                continue
+            for t, u in STORY_LINK_RE.findall(text):
+                urls.add(u.strip())
+                nt = normalize_title(t)
+                if len(nt) >= MIN_TITLE_MATCH_LEN:
+                    titles.add(nt)
+    except Exception as e:
+        logger.warning(f"Could not load seen stories (dedup disabled this run): {e}")
+        return set(), set()
+    return urls, titles
+
+
+def is_already_covered(title: str, url: str, seen_urls: set,
+                       seen_titles: set) -> bool:
+    """Covered = same URL, or normalized titles equal / one a prefix of
+    the other (catches re-posts with extended titles)."""
+    if url.strip() in seen_urls:
+        return True
+    nt = normalize_title(title)
+    if len(nt) < MIN_TITLE_MATCH_LEN:
+        return False
+    for st in seen_titles:
+        if nt == st or nt.startswith(st) or st.startswith(nt):
+            return True
+    return False
+
 
 @dataclass
 class Story:
@@ -127,6 +195,9 @@ def fetch_feed_lenient(feed_url: str):
 def pull_feeds() -> list[Story]:
     """Pull all RSS feeds and return stories within the lookback window."""
     cutoff = datetime.now(timezone.utc) - timedelta(hours=HOURS_LOOKBACK)
+    seen_urls, seen_titles = load_seen_stories()
+    logger.info(f"Dedup memory: {len(seen_urls)} URLs / {len(seen_titles)} "
+                f"titles from the last {SEEN_DAYS} days of briefs")
     all_stories = []
 
     for category, sources in RSS_SOURCES.items():
@@ -164,6 +235,12 @@ def pull_feeds() -> list[Story]:
                         if resolved != url:
                             logger.info(f"    Resolved: {resolved}")
                         url = resolved
+
+                    # Skip stories a recent brief already covered
+                    if is_already_covered(title, url, seen_urls, seen_titles):
+                        logger.info(
+                            f"    Skipped (covered in a recent brief): {title[:80]}")
+                        continue
 
                     story = Story(
                         title=title,
