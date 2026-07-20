@@ -1,0 +1,11 @@
+[Unit]
+OnFailure=brief-unpublish-alarm.service
+Description=Unpublish today's Travel Search Pulse Daily from Substack (post-email)
+ConditionPathExists=/etc/travel-seo-pulse.env
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/travel-seo-pulse.env
+ExecStart=/opt/travel-seo-pulse/.venv/bin/python /usr/local/bin/tsp_unpublish.py unpublish-today

@@ -1,0 +1,7 @@
+[Unit]
+Description=Alarm healthchecks when brief-unpublish fails for any reason
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/travel-seo-pulse.env
+ExecStart=/bin/bash -c 'curl -fsS -m 10 --retry 3 "$${HEALTHCHECK_URL}/fail" -d "brief-unpublish unit failed: see journalctl -u brief-unpublish"'

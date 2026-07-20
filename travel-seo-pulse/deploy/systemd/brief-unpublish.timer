@@ -1,0 +1,9 @@
+[Unit]
+Description=Fire daily unpublish 30+ min after the 06:00 Berlin publish
+
+[Timer]
+OnCalendar=Mon..Fri 06:35 Europe/Berlin
+Persistent=true
+
+[Install]
+WantedBy=timers.target
