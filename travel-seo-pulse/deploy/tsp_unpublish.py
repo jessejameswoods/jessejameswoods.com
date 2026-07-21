@@ -23,6 +23,7 @@ Usage (on the VPS, as the pulse user, env sourced from
     tsp_unpublish.py verify <slug>        # read-only: check URLs 404
     tsp_unpublish.py unpublish <post_id> <slug>
     tsp_unpublish.py unpublish-today      # find today's post and unpublish
+    tsp_unpublish.py sweep                # unpublish ANY stale daily post (>60 min)
 
 Exit codes: 0 = success, 1 = failure (alarm pinged), 2 = usage/not-found.
 """
@@ -128,6 +129,50 @@ def run_unpublish(session, api_base, post_id, slug, ping_fail, log=print):
     return 0
 
 
+DAILY_SLUG_PREFIX = "travel-search-pulse-daily-"
+
+
+def find_stale_daily_posts(posts, now, min_age_minutes=60):
+    """Daily-brief posts (by slug prefix) published more than min_age_minutes
+    ago. Non-daily slugs (essays) are NEVER selected. Unparseable dates are
+    skipped: a post we cannot age-check is a post we do not touch."""
+    stale = []
+    for post in posts:
+        slug = str(post.get("slug", ""))
+        if not slug.startswith(DAILY_SLUG_PREFIX):
+            continue
+        raw = str(post.get("post_date", ""))
+        try:
+            post_dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if post_dt.tzinfo is None:
+            post_dt = post_dt.replace(tzinfo=timezone.utc)
+        age_minutes = (now - post_dt).total_seconds() / 60
+        if age_minutes > min_age_minutes:
+            stale.append(post)
+    return stale
+
+
+def run_sweep(session, api_base, posts, ping_fail, now, log=print):
+    """Reconciliation pass: unpublish EVERY stale daily post still live.
+    One failure alarms (via run_unpublish) but does not stop the sweep -
+    each remaining stale post still gets its one attempt. Exit 1 if any
+    post failed, else 0."""
+    stale = find_stale_daily_posts(posts, now=now)
+    if not stale:
+        log("sweep: no stale daily posts live; nothing to do")
+        return 0
+    worst = 0
+    for post in stale:
+        log(f"sweep: stale daily post still live: id={post['id']} "
+            f"slug={post['slug']} post_date={post.get('post_date')}")
+        code = run_unpublish(session, api_base, post["id"], post["slug"],
+                             ping_fail, log=log)
+        worst = max(worst, code)
+    return worst
+
+
 # ---------- wiring (thin, not unit-tested) ----------
 
 def _make_session():
@@ -218,6 +263,11 @@ def main(argv):
         print(f"today's post: id={post['id']} slug={post['slug']} "
               f"title={post.get('title')!r} post_date={post.get('post_date')}")
         return run_unpublish(session, api_base, post["id"], post["slug"], _ping_fail)
+
+    if cmd == "sweep":
+        posts = _get_published(session, api_base)
+        return run_sweep(session, api_base, posts, _ping_fail,
+                         now=datetime.now(timezone.utc))
 
     print(f"unknown command: {cmd}")
     return 2

@@ -175,3 +175,90 @@ def test_run_unpublish_api_failure_pings_fail_and_skips_verify():
     assert code == 1
     assert len(pings) == 1
     assert len(s.get_calls) == 0
+
+
+# ---- sweep: find_stale_daily_posts ----
+
+from datetime import datetime, timezone
+
+from tsp_unpublish import find_stale_daily_posts, run_sweep
+
+NOW = datetime(2026, 7, 21, 6, 0, 0, tzinfo=timezone.utc)
+
+SWEEP_POSTS = [
+    # stale daily post from 3 days ago - MUST be swept
+    {"id": 10, "slug": "travel-search-pulse-daily-july-18",
+     "post_date": "2026-07-18T04:03:00.000Z"},
+    # today's daily post, published 5 minutes ago - inside the email window, MUST NOT be swept
+    {"id": 11, "slug": "travel-search-pulse-daily-july-21",
+     "post_date": "2026-07-21T05:55:00.000Z"},
+    # an essay - MUST NEVER be touched regardless of age
+    {"id": 12, "slug": "why-travel-is-ground-zero-for-ai-search",
+     "post_date": "2026-06-01T09:00:00.000Z"},
+    # daily post exactly 61 minutes old - stale, MUST be swept
+    {"id": 13, "slug": "travel-search-pulse-daily-july-21-special",
+     "post_date": "2026-07-21T04:59:00.000Z"},
+]
+
+
+def test_find_stale_daily_selects_only_old_daily_posts():
+    stale = find_stale_daily_posts(SWEEP_POSTS, now=NOW, min_age_minutes=60)
+    assert [p["id"] for p in stale] == [10, 13]
+
+
+def test_find_stale_daily_never_selects_essays():
+    # even an ancient non-daily slug must never appear
+    stale = find_stale_daily_posts(SWEEP_POSTS, now=NOW, min_age_minutes=60)
+    assert all(p["slug"].startswith("travel-search-pulse-daily-") for p in stale)
+
+
+def test_find_stale_daily_ignores_recent_daily_posts():
+    stale = find_stale_daily_posts(SWEEP_POSTS, now=NOW, min_age_minutes=60)
+    assert 11 not in [p["id"] for p in stale]
+
+
+def test_find_stale_daily_handles_unparseable_dates_by_skipping():
+    posts = [{"id": 1, "slug": "travel-search-pulse-daily-x", "post_date": "garbage"}]
+    assert find_stale_daily_posts(posts, now=NOW, min_age_minutes=60) == []
+
+
+# ---- sweep: run_sweep orchestration ----
+
+def test_run_sweep_noop_exits_0_with_no_calls_and_no_pings():
+    pings = []
+    s = FakeSession()
+    code = run_sweep(s, API, posts=[SWEEP_POSTS[1], SWEEP_POSTS[2]],
+                     ping_fail=lambda m: pings.append(m), now=NOW)
+    assert code == 0
+    assert s.post_calls == []
+    assert pings == []
+
+
+def test_run_sweep_unpublishes_every_stale_post_and_exits_0():
+    pings = []
+    s = FakeSession(
+        post_responses=[FakeResponse(200, None, text=""), FakeResponse(200, None, text="")],
+        get_responses=[FakeResponse(404)] * 4,
+    )
+    code = run_sweep(s, API, posts=SWEEP_POSTS,
+                     ping_fail=lambda m: pings.append(m), now=NOW)
+    assert code == 0
+    assert len(s.post_calls) == 2  # posts 10 and 13, one attempt each
+    assert f"{API}/drafts/10/unpublish" == s.post_calls[0][0]
+    assert f"{API}/drafts/13/unpublish" == s.post_calls[1][0]
+    assert pings == []
+
+
+def test_run_sweep_failure_alarms_continues_and_exits_1():
+    pings = []
+    s = FakeSession(
+        # first stale post fails at the API, second succeeds
+        post_responses=[FakeResponse(500, None, text="boom"),
+                        FakeResponse(200, None, text="")],
+        get_responses=[FakeResponse(404), FakeResponse(404)],
+    )
+    code = run_sweep(s, API, posts=SWEEP_POSTS,
+                     ping_fail=lambda m: pings.append(m), now=NOW)
+    assert code == 1
+    assert len(pings) == 1          # the failure alarmed
+    assert len(s.post_calls) == 2   # the second stale post was STILL attempted
