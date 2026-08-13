@@ -57,8 +57,8 @@ nav{position:fixed;top:0;width:100%;background:rgba(250,247,242,.95);backdrop-fi
 .hero{min-height:100vh;display:flex;align-items:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
 .hero-bg{position:absolute;top:50%;left:60%;transform:translate(-50%,-50%);width:600px;height:600px;opacity:.04;pointer-events:none}
 .hero-inner{max-width:1100px;margin:0 auto;width:100%}
-.hero h1{font-family:var(--serif);font-size:clamp(3rem,7vw,5.5rem);line-height:1.05;color:var(--dark);margin-bottom:.5rem}
-.hero h1 span{color:var(--terracotta)}
+.hero-name{font-family:var(--serif);font-size:clamp(3rem,7vw,5.5rem);line-height:1.05;color:var(--dark);margin-bottom:.5rem}
+.hero-name span{color:var(--terracotta)}
 .hero-subtitle{font-size:1.15rem;color:var(--warm-gray);margin-bottom:2rem;max-width:600px;font-weight:500}
 .hero-pitch{font-size:1.05rem;color:var(--dark);max-width:580px;margin-bottom:.75rem;line-height:1.8;opacity:.75}
 .hero-creds{font-size:.95rem;color:var(--warm-gray);max-width:580px;margin-bottom:2.5rem;font-style:italic}
@@ -165,7 +165,7 @@ footer a:hover{opacity:1}
   .lang-desktop{display:none}
   .hero{min-height:auto;padding:5rem 1.5rem 3rem}
   .hero-inner{gap:0.5rem !important}
-  .hero h1{font-size:2.5rem}
+  .hero-name{font-size:2.5rem}
   .hero-layout{flex-direction:column;text-align:center}
   .hero-text{min-width:auto;text-align:left}
   .hero-btns{flex-direction:column}
@@ -230,8 +230,8 @@ footer a:hover{opacity:1}
   <line x1="200" y1="20" x2="200" y2="380" stroke="#1a1a1a" stroke-width=".5"/>
 </svg>
 <div class="hero-inner" style="display:flex;align-items:center;gap:3rem;flex-wrap:wrap"><div style="flex:1;min-width:280px">
-  <h1>Jesse James<br><span>Woods</span></h1>
-  <p class="hero-subtitle">VP, SEO & Localization bei KAYAK. Führend in Travel SEO & AI Search.</p>
+  <p class="hero-name">Jesse James<br><span>Woods</span></p>
+  <h1 class="hero-subtitle">VP, SEO & Localization bei KAYAK. Führend in Travel SEO & AI Search (AI SEO / GEO).</h1>
   <p class="hero-pitch">Auf Travel Search Pulse veröffentliche ich Essays darüber, wohin sich die Reisesuche entwickelt - plus ein Daily Brief, das jeden Werktagmorgen von einer KI-Pipeline erstellt wird, die ich selbst gebaut habe.</p>
   <p class="hero-creds">Von Kleinanzeigen-Skalierung bei Yalwa über neue Märkte bei HolidayCheck bis zur internationalen SEO für eine der größten Reise-Metasuchmaschinen der Welt.</p>
   <div class="hero-btns">
