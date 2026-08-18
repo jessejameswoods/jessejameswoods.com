@@ -536,6 +536,15 @@ footer a:hover{opacity:1}
 </footer>
 
 <script>
+// Fragment landing fix: reveal target section and scroll instantly (smooth-scroll races page load)
+if(location.hash){
+  const t=document.querySelector(CSS.escape ? '#'+CSS.escape(location.hash.slice(1)) : location.hash);
+  if(t){
+    t.closest('.reveal')?.classList.add('visible');
+    requestAnimationFrame(()=>t.scrollIntoView({behavior:'instant',block:'start'}));
+  }
+}
+
 // Scroll reveal
 const reveals=document.querySelectorAll('.reveal');
 const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}})},{threshold:.15});
