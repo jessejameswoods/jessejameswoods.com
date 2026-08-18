@@ -541,7 +541,8 @@ if(location.hash){
   const t=document.querySelector(CSS.escape ? '#'+CSS.escape(location.hash.slice(1)) : location.hash);
   if(t){
     t.closest('.reveal')?.classList.add('visible');
-    requestAnimationFrame(()=>t.scrollIntoView({behavior:'instant',block:'start'}));
+    t.scrollIntoView({behavior:'instant',block:'start'});
+    window.addEventListener('load',()=>t.scrollIntoView({behavior:'instant',block:'start'}),{once:true});
   }
 }
 
