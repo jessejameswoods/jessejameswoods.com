@@ -72,7 +72,7 @@ nav{position:fixed;top:0;width:100%;background:rgba(250,247,242,.95);backdrop-fi
 section{padding:5rem 2rem}
 .section-inner{max-width:1100px;margin:0 auto}
 .section-label{font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--terracotta);margin-bottom:.5rem}
-.section-title{font-family:var(--serif);font-size:2.5rem;margin-bottom:1.5rem}
+.section-title{font-family:var(--serif);font-size:2.5rem;margin-bottom:1.5rem;scroll-margin-top:8rem}
 
 /* COMPANIES */
 .companies{background:var(--accent-light)}
@@ -264,10 +264,10 @@ footer a:hover{opacity:1}
 </section>
 
 <!-- ABOUT -->
-<section id="about">
+<section>
 <div class="section-inner reveal">
   <p class="section-label">Über mich</p>
-  <h2 class="section-title">VP, SEO & Localization bei KAYAK</h2>
+  <h2 class="section-title" id="about">VP, SEO & Localization bei KAYAK</h2>
   <p style="max-width:700px;font-size:1.05rem;margin-bottom:1.5rem">Ich verantworte SEO und Localization bei KAYAK - 7 Marken, 60+ Märkte, 25+ Sprachen. Mein Job ist es, dafür zu sorgen, dass Reisende weltweit uns über die Suche finden - in ihrer eigenen Sprache, zu ihren eigenen Bedingungen. Das mache ich seit über 15 Jahren in der Google-Suche - und jetzt in der neuen Welle der KI-Suche mit Google AI Overviews, ChatGPT und Perplexity.</p>
   <p style="max-width:700px;font-size:1.05rem;margin-bottom:1.5rem">Localization ist nicht Übersetzung. Es geht darum zu verstehen, wie Menschen in verschiedenen Märkten tatsächlich suchen, was sie auf der Seite erwarten und wie man Seiten baut, die den Klick verdienen. Die beste langfristige SEO-Strategie: eine Website, die so gut ist, dass Suchmaschinen sich schämen müssten, sie nicht zu ranken.</p>
   <p style="max-width:700px;font-size:1.05rem;margin-bottom:1.5rem">Angefangen habe ich in der internationalen SEO bei Yalwa, habe neue Märkte bei HolidayCheck skaliert und bin seit 2015 bei KAYAK - vom SEO-Analysten bis zum VP. Nebenbei habe ich <a href="https://gudejobs.com/" target="_blank">gudejobs.com</a> gegründet, um internationalen Talenten bei der Jobsuche in Deutschland zu helfen - hier bin ich auch zuhause.</p>
@@ -280,7 +280,7 @@ footer a:hover{opacity:1}
 <section class="testimonials">
 <div class="section-inner reveal">
   <p class="section-label">Was Kollegen sagen</p>
-  <h2 class="section-title">Das sagen Menschen, mit denen ich gearbeitet habe</h2>
+  <h2 class="section-title" id="testimonials">Das sagen Menschen, mit denen ich gearbeitet habe</h2>
   <p class="test-hint">← wischen oder scrollen →</p>
   <div class="test-grid">
     <div class="test-card">
@@ -363,10 +363,10 @@ footer a:hover{opacity:1}
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience" style="background:var(--accent-light)">
+<section style="background:var(--accent-light)">
 <div class="section-inner reveal">
   <p class="section-label">Werdegang</p>
-  <h2 class="section-title">Mein Werdegang</h2>
+  <h2 class="section-title" id="experience">Mein Werdegang</h2>
   <div class="timeline">
     <div class="tl-item" id="tl-kayak">
       <div class="tl-title">VP, SEO & Localization</div>
@@ -426,10 +426,10 @@ footer a:hover{opacity:1}
 </section>
 
 <!-- NEWSLETTER -->
-<section id="newsletter">
+<section>
 <div class="section-inner reveal">
   <p class="section-label">Newsletter</p>
-  <h2 class="section-title">Travel Search Pulse</h2>
+  <h2 class="section-title" id="newsletter">Travel Search Pulse</h2>
   <p style="max-width:650px;font-size:1.05rem;margin-bottom:1rem">Essays mit klarer Haltung dazu, wohin sich die Reisesuche entwickelt. Plus Travel Search Pulse Daily: ein automatisiertes Briefing, das das Beste aus 20+ Quellen zu Travel, SEO und KI kuratiert - mit einem 'From a Travel SEO POV'-Take auf Praktiker-Niveau zu jeder Story. Erstellt jeden Werktagmorgen von einer KI-Pipeline, die ich selbst gebaut und konfiguriert habe. Travel Search Pulse erscheint auf Englisch.</p>
   <a href="https://www.travelsearchpulse.com/subscribe" target="_blank" class="btn-primary" style="margin-bottom:3rem;display:inline-block">Travel Search Pulse abonnieren</a>
   <div class="nl-grid">
@@ -465,10 +465,10 @@ footer a:hover{opacity:1}
 </section>
 
 <!-- SPEAKING -->
-<section class="speaking" id="speaking">
+<section class="speaking">
 <div class="section-inner reveal">
   <p class="section-label">Vorträge</p>
-  <h2 class="section-title">Vorträge</h2>
+  <h2 class="section-title" id="speaking">Vorträge</h2>
   <p style="max-width:650px;font-size:1.05rem;margin-bottom:1.5rem">Gelegentlich spreche ich auf Konferenzen über KI-Suche, internationale SEO und organisches Wachstum.</p>
   <div class="topic-tags">
     <span class="topic-tag">Internationale Suchstrategie</span>
@@ -499,10 +499,10 @@ footer a:hover{opacity:1}
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
+<section>
 <div class="section-inner reveal">
   <p class="section-label">Kontakt</p>
-  <h2 class="section-title">Kontakt aufnehmen</h2>
+  <h2 class="section-title" id="contact">Kontakt aufnehmen</h2>
   <p style="max-width:600px;font-size:1.05rem;margin-bottom:.5rem">Ob Vortragsanfrage, Beratungsprojekt oder einfach nur Hallo - ich freue mich, von Ihnen zu hören.</p>
   <p style="margin-bottom:2rem"><a href="https://www.linkedin.com/in/jessejameswoods/" target="_blank">Finden Sie mich auf LinkedIn →</a></p>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start" class="contact-grid">
