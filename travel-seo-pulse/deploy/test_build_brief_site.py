@@ -440,3 +440,40 @@ def test_build_site_copies_favicon_assets(output_dir, tmp_path, monkeypatch):
     b.build_site(output_dir, webroot)
     assert (webroot / "favicon.png").read_bytes() == b"\x89fav"
     assert (webroot / "apple-touch-icon.png").read_bytes() == b"\x89touch"
+
+
+# ---- GA4 tag (Sep 2026): archive reports into the same property as www ----
+
+def test_gtag_injected_once_before_head_close():
+    from build_brief_site import inject_gtag, GA_MEASUREMENT_ID
+    assert GA_MEASUREMENT_ID == "G-EGJE2FWL4T"
+    out = inject_gtag(SAMPLE_HTML)
+    loader = f"https://www.googletagmanager.com/gtag/js?id={GA_MEASUREMENT_ID}"
+    assert out.count(loader) == 1
+    assert out.count(f"gtag('config', '{GA_MEASUREMENT_ID}')") == 1
+    assert out.index(loader) < out.index("</head>")
+    assert inject_gtag(out) == out
+
+
+def test_transform_brief_carries_gtag_once():
+    from build_brief_site import GA_MEASUREMENT_ID
+    out = transform_brief(SAMPLE_HTML, "July 10, 2026")
+    assert out.count(f"gtag/js?id={GA_MEASUREMENT_ID}") == 1
+    assert transform_brief(out, "July 10, 2026").count(
+        f"gtag/js?id={GA_MEASUREMENT_ID}") == 1
+
+
+def test_index_carries_gtag_once(output_dir):
+    from build_brief_site import GA_MEASUREMENT_ID
+    html = render_index(discover_briefs(output_dir))
+    assert html.count(f"gtag/js?id={GA_MEASUREMENT_ID}") == 1
+    assert html.index("gtag/js") < html.index("</head>")
+
+
+def test_build_site_pages_all_tagged(output_dir, tmp_path):
+    from build_brief_site import GA_MEASUREMENT_ID
+    webroot = tmp_path / "www"
+    build_site(output_dir, webroot)
+    for page in webroot.glob("*.html"):
+        assert page.read_text(encoding="utf-8").count(
+            f"gtag/js?id={GA_MEASUREMENT_ID}") == 1, page.name

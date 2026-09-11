@@ -43,6 +43,20 @@ AUTHOR_URL = "https://substack.com/@jessejameswoods"
 BRIEF_RE = re.compile(r"^newsletter-(\d{4})-(\d{2})-(\d{2})\.html$")
 NOINDEX_META = '<meta name="robots" content="noindex">'
 
+# GA4: the archive reports into the same property as www (Substack injects
+# the identical ID there). Same root domain, so the _ga cookie is shared and
+# a reader moving www -> brief stays one session. Jesse's own visits are
+# excluded server-side by the property's internal-traffic IP rules.
+GA_MEASUREMENT_ID = "G-EGJE2FWL4T"
+GTAG_HTML = f"""<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={GA_MEASUREMENT_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', '{GA_MEASUREMENT_ID}');
+</script>"""
+
 ROBOTS_TXT = "User-agent: *\nAllow: /\n"
 
 # Exact copy per spec. "Travel Search Pulse" is the only place the site
@@ -188,6 +202,13 @@ def inject_noindex(html):
     return html.replace("<head>", "<head>\n" + NOINDEX_META, 1)
 
 
+def inject_gtag(html):
+    """GA4 tag before </head>. Idempotent (marker: the gtag loader URL)."""
+    if f"gtag/js?id={GA_MEASUREMENT_ID}" in html:
+        return html
+    return html.replace("</head>", GTAG_HTML + "\n</head>", 1)
+
+
 def inject_chrome(html):
     """Masthead + its CSS on any page. Idempotent (marker: tsp-masthead)."""
     if "tsp-masthead" in html:
@@ -296,6 +317,7 @@ def transform_brief(html, label, recent_html=""):
     html = inject_author_schema(html, canonical, _label_to_iso(label))
     html = inject_noindex(html)
     html = inject_chrome(html)
+    html = inject_gtag(html)
     return html
 
 
@@ -341,13 +363,14 @@ def render_card(brief_path):
 def render_index(briefs):
     """Content-card index, newest first (briefs arrive newest-first)."""
     entries = "\n".join(render_card(p) for p in briefs)
-    return (
+    html = (
         INDEX_TEMPLATE
         .replace("__CHROME_CSS__", CHROME_CSS)
         .replace("__CHROME_HTML__", CHROME_HTML)
         .replace("__INTRO__", INTRO_HTML)
         .replace("__ENTRIES__", entries)
     )
+    return inject_gtag(html)
 
 
 def build_site(source_dir, webroot):
