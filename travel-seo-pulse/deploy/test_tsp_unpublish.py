@@ -262,3 +262,31 @@ def test_run_sweep_failure_alarms_continues_and_exits_1():
     assert code == 1
     assert len(pings) == 1          # the failure alarmed
     assert len(s.post_calls) == 2   # the second stale post was STILL attempted
+
+
+# ---------- cookie shape: must match substack_publisher._cookies_string ----------
+
+from tsp_unpublish import cookie_header
+
+
+def test_cookie_header_bare_value_gets_prefixed():
+    assert cookie_header("s%3Aabc.def") == "substack.sid=s%3Aabc.def"
+
+
+def test_cookie_header_full_header_is_not_prefixed_twice():
+    # 2026-10-08 regression: a refreshed cookie stored as a header was prefixed
+    # again, Substack answered 401, and the sweep never unpublished the Daily.
+    h = "substack.sid=s%3Aabc.def; substack.lli=1"
+    assert cookie_header(h) == h
+    assert cookie_header(h).count("substack.sid=") == 1
+
+
+def test_cookie_header_strips_quotes_and_whitespace():
+    assert cookie_header('  "s%3Aabc"  ') == "substack.sid=s%3Aabc"
+
+
+def test_cookie_header_empty_raises():
+    with pytest.raises(ValueError):
+        cookie_header("")
+    with pytest.raises(ValueError):
+        cookie_header(None)

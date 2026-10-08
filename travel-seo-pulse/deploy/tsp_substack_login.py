@@ -59,9 +59,11 @@ def _store_session(s) -> int:
         print("ERROR: Substack did not set a session. Codes/links are single-use and expire "
               "within minutes; run --request again and use the newest email.")
         return 1
-    header = "; ".join(f"{c.name}={c.value}" for c in s.cookies if c.name.startswith("substack."))
-    if "substack.sid=" not in header:
-        header = f"substack.sid={sid}"
+    # Store the bare session value, not a "substack.sid=..." header: every
+    # script on the box (substack_publisher, tsp_unpublish, diag/probe tools)
+    # builds its own header from the bare value, and tsp_unpublish prefixing
+    # an already-prefixed value is exactly what broke the sweep on 2026-10-08.
+    header = sid
     with open(ENV_PATH) as f:
         lines = f.read().splitlines()
     backup = f"{ENV_PATH}.bak-{time.strftime('%Y%m%d-%H%M%S')}"

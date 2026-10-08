@@ -173,6 +173,22 @@ def run_sweep(session, api_base, posts, ping_fail, now, log=print):
     return worst
 
 
+def cookie_header(raw):
+    """Turn the SUBSTACK_COOKIE env value into the Cookie header python-substack
+    sends. Accepts the bare substack.sid value ("s%3A...") or a full header
+    ("substack.sid=s%3A...; substack.lli=1"). Same rule as
+    substack_publisher._cookies_string; the two must never disagree, or the
+    publish half of the pipeline works while the unpublish half gets 401
+    (2026-10-08: a refreshed cookie stored as a header was prefixed a second
+    time here, the sweep failed to sign in, and a Daily stayed live all day)."""
+    value = (raw or "").strip().strip('"').strip("'").strip()
+    if not value:
+        raise ValueError("SUBSTACK_COOKIE not set")
+    if "substack.sid=" in value:
+        return value
+    return f"substack.sid={value}"
+
+
 # ---------- wiring (thin, not unit-tested) ----------
 
 def _make_session():
@@ -183,13 +199,14 @@ def _make_session():
     Returns (session, api_base)."""
     from substack import Api
 
-    cookie = os.environ.get("SUBSTACK_COOKIE")
-    if not cookie:
-        print("SUBSTACK_COOKIE not set", file=sys.stderr)
+    try:
+        cookies = cookie_header(os.environ.get("SUBSTACK_COOKIE"))
+    except ValueError as e:
+        print(str(e), file=sys.stderr)
         sys.exit(2)
     api = Api(
         publication_url=f"https://{PUBLICATION}.substack.com",
-        cookies_string=f"substack.sid={cookie}",
+        cookies_string=cookies,
     )
     return api._session, api.publication_url
 
