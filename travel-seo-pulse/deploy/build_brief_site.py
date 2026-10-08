@@ -9,7 +9,7 @@ directory and publishes them to a webroot with, per copy:
 - byline linked to the author page (www/about) + NewsArticle JSON-LD
   with Person author schema.
 - shared site chrome mirroring the main Substack site: real pulse icon,
-  bold sans wordmark, tabs Home / Notes / Daily / Archive / About with
+  bold sans wordmark, tabs Home / Daily / Archive / About with
   Daily active on this site.
 - noindex meta injected (belt-and-braces next to the Caddy header).
 
@@ -107,7 +107,7 @@ CHROME_HTML = """<header class="tsp-masthead"><div class="tsp-masthead-inner">
 <a class="tsp-brand" href="https://www.travelsearchpulse.com"><img src="/tsp-icon.png" alt="Travel Search Pulse" class="tsp-icon"></a>
 <a class="tsp-name" href="https://www.travelsearchpulse.com">Travel Search Pulse</a>
 <a class="tsp-subscribe" href="https://www.travelsearchpulse.com/subscribe">Subscribe</a>
-<nav class="tsp-tabs"><a class="tsp-tab" href="https://www.travelsearchpulse.com">Home</a><a class="tsp-tab" href="https://www.travelsearchpulse.com/notes">Notes</a><a class="tsp-tab tsp-tab-active" href="/">Daily</a><a class="tsp-tab" href="https://www.travelsearchpulse.com/archive">Archive</a><a class="tsp-tab" href="https://www.travelsearchpulse.com/about">About</a></nav>
+<nav class="tsp-tabs"><a class="tsp-tab" href="https://www.travelsearchpulse.com">Home</a><a class="tsp-tab tsp-tab-active" href="/">Daily</a><a class="tsp-tab" href="https://www.travelsearchpulse.com/archive">Archive</a><a class="tsp-tab" href="https://www.travelsearchpulse.com/about">About</a></nav>
 </div></header>"""
 
 SCHEMA_TEMPLATE = """<script type="application/ld+json">

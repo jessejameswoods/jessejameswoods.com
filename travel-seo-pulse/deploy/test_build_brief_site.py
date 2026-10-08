@@ -189,11 +189,13 @@ def test_chrome_mirrors_main_site_masthead():
     assert 'class="tsp-name"' in CHROME_HTML and ">Travel Search Pulse<" in CHROME_HTML
     assert ('<a class="tsp-subscribe" '
             'href="https://www.travelsearchpulse.com/subscribe">Subscribe</a>') in CHROME_HTML
-    # same five tabs as the Substack site, same order, Daily active -> "/"
+    # four tabs, same order as the Substack site minus Notes (hidden on purpose,
+    # 2026-10-08), Daily active -> "/"
     tabs = re.findall(r'<a[^>]*class="[^"]*tsp-tab[^"]*"[^>]*>([^<]+)</a>', CHROME_HTML)
-    assert tabs == ["Home", "Notes", "Daily", "Archive", "About"]
+    assert tabs == ["Home", "Daily", "Archive", "About"]
     assert '<a class="tsp-tab tsp-tab-active" href="/">Daily</a>' in CHROME_HTML
-    assert 'href="https://www.travelsearchpulse.com/notes"' in CHROME_HTML
+    assert "/notes" not in CHROME_HTML
+    assert "Notes" not in CHROME_HTML
 
 
 def test_chrome_matches_www_typography_and_favicon():
