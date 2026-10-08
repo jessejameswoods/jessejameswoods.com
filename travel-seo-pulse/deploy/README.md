@@ -48,6 +48,18 @@ sudo -u pulse git -C /opt/travel-seo-pulse pull
 
 ## Refreshing the Substack cookie
 
+**Fast path (no DevTools), on the VPS as root:**
+```bash
+tsp-substack-login --request          # Substack emails "Sign in to Substack" to the owner address
+tsp-substack-login 'https://substack.com/sign-in?...'   # paste the link from that email
+```
+The second command signs in server-side, writes the fresh cookie into
+/etc/travel-seo-pulse.env (backup kept) and runs the read-only auth check.
+Links are single-use and expire within minutes; if it says no session was set,
+run --request again and use the newest email.
+
+**Manual path (DevTools), if the fast path ever stops working:**
+
 `SUBSTACK_COOKIE` eventually expires, and Substack separately refuses the
 publish+send call on sessions it considers too old ("For your security, please
 sign out and sign back in", HTTP 403) even while reads and draft creation still
