@@ -51,8 +51,10 @@ sudo -u pulse git -C /opt/travel-seo-pulse pull
 **Fast path (no DevTools), on the VPS as root:**
 ```bash
 tsp-substack-login --request          # Substack emails "Sign in to Substack" to the owner address
-tsp-substack-login 'https://substack.com/sign-in?...'   # paste the link from that email
+tsp-substack-login --code 123456      # the 6-digit code from that email (or paste the sign-in link instead)
 ```
+If `--request` produces no email, trigger it from a browser instead (see the
+docstring in `tsp_substack_login.py`), then run `--code`.
 The second command signs in server-side, writes the fresh cookie into
 /etc/travel-seo-pulse.env (backup kept) and runs the read-only auth check.
 Links are single-use and expire within minutes; if it says no session was set,
