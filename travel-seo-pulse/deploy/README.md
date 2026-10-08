@@ -48,19 +48,32 @@ sudo -u pulse git -C /opt/travel-seo-pulse pull
 
 ## Refreshing the Substack cookie
 
-`SUBSTACK_COOKIE` eventually expires. When it does, healthchecks.io will email you about a failed run and the log will show an auth error from `python-substack`. Fix:
+`SUBSTACK_COOKIE` eventually expires, and Substack separately refuses the
+publish+send call on sessions it considers too old ("For your security, please
+sign out and sign back in", HTTP 403) even while reads and draft creation still
+work (seen 2026-10-08 on a 177-day-old cookie). Either way the fix is the same:
 
-1. Log in to Substack in Chrome (the account that owns the publication).
+1. Log in to Substack in Chrome (the account that owns the publication). If the
+   failure was the 403 above, sign out and sign back in first so the session is fresh.
 2. Open DevTools (F12) → **Network** tab → refresh the page.
 3. Find any request to `substack.com` (e.g. `subscription/unread/subscriptions`).
 4. Right-click → **Copy** → **Copy as fetch (Node.js)**.
-5. Paste somewhere scratch and extract the full string assigned to the `cookie` header (everything between the quotes after `"cookie":`).
+5. Paste somewhere scratch and copy the full string assigned to the `cookie`
+   header (everything between the quotes after `"cookie":`). The code accepts
+   either this full header or the bare `substack.sid` value.
 6. Update the VPS env:
    ```bash
    ssh root@<vps> "nano /etc/travel-seo-pulse.env"
    # Replace the SUBSTACK_COOKIE=... line, save, chmod 600
    ```
-7. Test: `ssh root@<vps> "systemctl start travel-seo-pulse.service && journalctl -u travel-seo-pulse.service -n 50 --no-pager"`
+7. Test WITHOUT publishing anything:
+   ```bash
+   ssh root@<vps> "set -a; . /etc/travel-seo-pulse.env; set +a; \
+     /opt/travel-seo-pulse/.venv/bin/python /opt/travel-seo-pulse/travel-seo-pulse/deploy/substack_auth_check.py"
+   ```
+   Do NOT re-run `travel-seo-pulse.service` to test on a day the pipeline already
+   created a draft: it builds a second draft and can send the issue twice.
+   If today's issue is sitting unsent, open the draft in Substack and publish it by hand.
 
 No restart of the timer is needed — the wrapper re-sources the env on every run.
 

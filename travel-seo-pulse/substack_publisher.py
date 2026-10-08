@@ -73,13 +73,31 @@ def _prepare_markdown_for_substack(markdown_content: str) -> str:
     return cleaned.strip()
 
 
+def _cookies_string(raw: str) -> str:
+    """Turn the SUBSTACK_COOKIE env value into the Cookie header python-substack sends.
+
+    Accepts either form the runbooks have asked for over time:
+      - the bare value of substack.sid (config.py instructions)
+      - the full cookie header copied from DevTools (deploy/README.md), which
+        may carry additional Substack cookies that newer security checks on
+        publish/send appear to require.
+    """
+    value = (raw or "").strip().strip('"').strip("'").strip()
+    if not value:
+        raise ValueError("SUBSTACK_COOKIE is empty: refresh it per deploy/README.md")
+    if "substack.sid=" in value:
+        return value
+    return f"substack.sid={value}"
+
+
 def _get_api():
     """Initialize the Substack API with cookie auth."""
+    cookies = _cookies_string(SUBSTACK_COOKIE)  # validate config before touching the network
     from substack import Api
 
     api = Api(
         publication_url=f"https://{SUBSTACK_PUBLICATION}.substack.com",
-        cookies_string=f"substack.sid={SUBSTACK_COOKIE}",
+        cookies_string=cookies,
     )
     return api
 
