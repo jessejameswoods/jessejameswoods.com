@@ -160,6 +160,28 @@ def inject_follow(html):
     return html.replace("</body>", render_follow() + "\n</body>", 1)
 
 
+def render_org_schema():
+    """Organization JSON-LD for the archive index: the brand entity with
+    every social account as sameAs, built from SOCIAL_LINKS so the footer,
+    the per-brief publisher block and this never disagree."""
+    import json
+    data = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Travel Search Pulse",
+        "url": WWW,
+        "logo": "https://brief.travelsearchpulse.com/tsp-icon.png",
+        "founder": {
+            "@type": "Person",
+            "name": "Jesse James Woods",
+            "url": "https://jessejameswoods.com",
+        },
+        "sameAs": [url for _, url in SOCIAL_LINKS],
+    }
+    return ('<script type="application/ld+json">\n'
+            + json.dumps(data, indent=2) + "\n</script>")
+
+
 CHROME_HTML = """<header class="tsp-masthead"><div class="tsp-masthead-inner">
 <a class="tsp-brand" href="https://www.travelsearchpulse.com"><img src="/tsp-icon.png" alt="Travel Search Pulse" class="tsp-icon"></a>
 <a class="tsp-name" href="https://www.travelsearchpulse.com">Travel Search Pulse</a>
@@ -186,19 +208,7 @@ SCHEMA_TEMPLATE = """<script type="application/ld+json">
     "@type": "Organization",
     "name": "Travel Search Pulse",
     "url": "https://www.travelsearchpulse.com",
-    "sameAs": [
-      "https://www.youtube.com/@travelsearchpulse",
-      "https://podcasts.apple.com/us/podcast/travel-search-pulse/id6821920555",
-      "https://open.spotify.com/show/4I3zo7i1cTVd5GixqGoDfZ",
-      "https://www.linkedin.com/company/travelsearchpulse/",
-      "https://x.com/travelsrchpulse",
-      "https://www.instagram.com/travelsearchpulse/",
-      "https://www.tiktok.com/@travel.search.puls",
-      "https://www.threads.com/@travelsearchpulse",
-      "https://bsky.app/profile/travelsearchpulse.bsky.social",
-      "https://www.facebook.com/travelsearchpulse/",
-      "https://www.reddit.com/r/TravelSearchPulse/"
-    ]
+    "sameAs": __PUBLISHER_SAMEAS__
   }
 }
 </script>"""
@@ -228,6 +238,7 @@ ul.tsp-cards{list-style:none}
 .tsp-card-excerpt{display:block;font-size:.88rem;color:#6B6560;margin-top:.25rem}
 </style>
 __CHROME_CSS__
+__ORG_SCHEMA__
 </head>
 <body>
 __CHROME_HTML__
@@ -316,9 +327,13 @@ def inject_author_schema(html, headline, iso_date):
     """NewsArticle JSON-LD with Person author. Idempotent."""
     if "application/ld+json" in html:
         return html
+    import json
     block = (SCHEMA_TEMPLATE
              .replace("__HEADLINE__", headline)
-             .replace("__DATE__", iso_date))
+             .replace("__DATE__", iso_date)
+             .replace("__PUBLISHER_SAMEAS__",
+                      json.dumps([u for _, u in SOCIAL_LINKS], indent=6)
+                      .replace("\n]", "\n    ]")))
     return html.replace("</head>", block + "\n</head>", 1)
 
 
@@ -442,6 +457,7 @@ def render_index(briefs):
         .replace("__INTRO__", INTRO_HTML)
         .replace("__ENTRIES__", entries)
         .replace("__FOLLOW__", render_follow())
+        .replace("__ORG_SCHEMA__", render_org_schema())
     )
     return inject_gtag(html)
 

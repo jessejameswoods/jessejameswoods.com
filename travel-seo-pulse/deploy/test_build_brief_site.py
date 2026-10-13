@@ -282,6 +282,8 @@ def test_index_intro_exact_copy_with_brand_link(output_dir):
 
 def test_index_never_names_bare_domain_in_prose(output_dir):
     html = render_index(discover_briefs(output_dir))
+    # prose only: JSON-LD and CSS are machine-readable, not reader-facing
+    html = re.sub(r"<(script|style)\b[^>]*>.*?</\1>", " ", html, flags=re.S)
     text = re.sub(r"<[^>]+>", " ", html)  # strip tags, keep text nodes
     assert "travelsearchpulse.com" not in text
 
@@ -558,10 +560,28 @@ def test_transform_brief_and_index_carry_follow_footer(output_dir, tmp_path):
         assert 'href="https://www.youtube.com/@travelsearchpulse"' in text, page.name
 
 
+def _ld_blocks(html):
+    import json, re
+    return [json.loads(m) for m in re.findall(
+        r'<script type="application/ld\+json">\s*(.*?)\s*</script>', html, re.S)]
+
+
 def test_publisher_schema_lists_social_profiles_as_sameas():
-    from build_brief_site import SCHEMA_TEMPLATE
-    import json
-    body = SCHEMA_TEMPLATE.split(">", 1)[1].rsplit("</script>", 1)[0]
-    body = body.replace("__HEADLINE__", "h").replace("__DATE__", "2026-10-13")
-    data = json.loads(body)
-    assert set(data["publisher"]["sameAs"]) == set(EXPECTED_SOCIAL.values())
+    from build_brief_site import inject_author_schema
+    html = inject_author_schema("<html><head></head><body></body></html>", "h", "2026-10-13")
+    (data,) = _ld_blocks(html)
+    assert data["@type"] == "NewsArticle"
+    assert data["publisher"]["sameAs"] == list(EXPECTED_SOCIAL.values())
+
+
+def test_index_carries_organization_schema_with_sameas(output_dir):
+    from build_brief_site import render_index, discover_briefs
+    html = render_index(discover_briefs(output_dir))
+    blocks = [b for b in _ld_blocks(html) if b.get("@type") == "Organization"]
+    assert len(blocks) == 1
+    org = blocks[0]
+    assert org["name"] == "Travel Search Pulse"
+    assert org["url"] == "https://www.travelsearchpulse.com"
+    assert org["sameAs"] == list(EXPECTED_SOCIAL.values())
+    assert org["founder"]["name"] == "Jesse James Woods"
+    assert html.index("application/ld+json") < html.index("</head>")
