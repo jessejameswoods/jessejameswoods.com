@@ -479,3 +479,76 @@ def test_build_site_pages_all_tagged(output_dir, tmp_path):
     for page in webroot.glob("*.html"):
         assert page.read_text(encoding="utf-8").count(
             f"gtag/js?id={GA_MEASUREMENT_ID}") == 1, page.name
+
+
+# ---------- social footer (2026-10-13): every page links the TSP accounts ----------
+
+from build_brief_site import SOCIAL_LINKS, render_follow, inject_follow
+
+EXPECTED_SOCIAL = {
+    "YouTube": "https://www.youtube.com/@travelsearchpulse",
+    "Apple Podcasts": "https://podcasts.apple.com/us/podcast/travel-search-pulse/id6821920555",
+    "Spotify": "https://open.spotify.com/show/4I3zo7i1cTVd5GixqGoDfZ",
+    "LinkedIn": "https://www.linkedin.com/company/travelsearchpulse/",
+    "X": "https://x.com/travelsrchpulse",
+    "Instagram": "https://www.instagram.com/travelsearchpulse/",
+    "TikTok": "https://www.tiktok.com/@travel.search.puls",
+    "Threads": "https://www.threads.com/@travelsearchpulse",
+    "Bluesky": "https://bsky.app/profile/travelsearchpulse.bsky.social",
+    "Facebook": "https://www.facebook.com/travelsearchpulse/",
+    "Reddit": "https://www.reddit.com/r/TravelSearchPulse/",
+}
+
+
+def test_social_links_are_the_confirmed_accounts():
+    assert dict(SOCIAL_LINKS) == EXPECTED_SOCIAL
+    # order matters: podcast homes first, then the posting surfaces
+    assert [n for n, _ in SOCIAL_LINKS][:3] == ["YouTube", "Apple Podcasts", "Spotify"]
+
+
+def test_render_follow_links_every_account_with_rel_attrs():
+    html = render_follow()
+    assert html.startswith('<footer class="tsp-follow">')
+    assert "Follow Travel Search Pulse" in html
+    for name, url in SOCIAL_LINKS:
+        assert f'href="{url}"' in html
+        assert f">{name}</a>" in html
+    assert html.count('rel="me noopener"') == len(SOCIAL_LINKS)
+    assert html.count('target="_blank"') == len(SOCIAL_LINKS)
+    assert "\u2014" not in html and "\u2013" not in html
+
+
+def test_inject_follow_goes_before_body_close_and_is_idempotent():
+    page = "<html><body><p>x</p></body></html>"
+    once = inject_follow(page)
+    assert once.index("tsp-follow") < once.index("</body>")
+    assert inject_follow(once) == once
+    assert once.count('class="tsp-follow"') == 1
+
+
+def test_inject_follow_still_adds_footer_when_chrome_css_present():
+    # regression: the chrome stylesheet mentions .tsp-follow; that must not
+    # count as "footer already present"
+    from build_brief_site import inject_chrome
+    page = inject_chrome("<html><head></head><body><p>x</p></body></html>")
+    assert ".tsp-follow" in page and 'class="tsp-follow"' not in page
+    assert inject_follow(page).count('class="tsp-follow"') == 1
+
+
+def test_transform_brief_and_index_carry_follow_footer(output_dir, tmp_path):
+    from build_brief_site import build_site
+    webroot = tmp_path / "web"
+    build_site(output_dir, webroot)
+    for page in webroot.glob("*.html"):
+        text = page.read_text(encoding="utf-8")
+        assert text.count('class="tsp-follow"') == 1, page.name
+        assert 'href="https://www.youtube.com/@travelsearchpulse"' in text, page.name
+
+
+def test_publisher_schema_lists_social_profiles_as_sameas():
+    from build_brief_site import SCHEMA_TEMPLATE
+    import json
+    body = SCHEMA_TEMPLATE.split(">", 1)[1].rsplit("</script>", 1)[0]
+    body = body.replace("__HEADLINE__", "h").replace("__DATE__", "2026-10-13")
+    data = json.loads(body)
+    assert set(data["publisher"]["sameAs"]) == set(EXPECTED_SOCIAL.values())

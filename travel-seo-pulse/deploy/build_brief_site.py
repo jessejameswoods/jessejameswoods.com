@@ -100,8 +100,55 @@ h1{font-size:clamp(1.45rem,5.5vw,2.1rem) !important;line-height:1.3 !important}
 .tsp-recent li{margin-bottom:.4rem}
 .tsp-recent a{color:#C2532E;text-decoration:none;font-family:SYSFONT;font-size:.95rem}
 .tsp-recent a:hover{opacity:.8}
+.tsp-follow{margin-top:2.5rem;border-top:1px solid #E8E3DD;background:#FAF7F2}
+.tsp-follow-inner{max-width:1000px;margin:0 auto;padding:1.1rem 1rem 1.4rem;text-align:center}
+.tsp-follow-label{display:block;font-family:SYSFONT;font-size:.8rem;font-weight:600;color:#6B6560;letter-spacing:.02em;margin-bottom:.45rem}
+.tsp-follow-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem 1.1rem}
+.tsp-follow-links a{font-family:SYSFONT;font-size:.88rem;color:#C2532E;text-decoration:none}
+.tsp-follow-links a:hover{opacity:.8}
 @media (max-width:640px){.tsp-name{font-size:1.05rem}.tsp-subscribe{font-size:.78rem;padding:.35rem .7rem}.tsp-tabs{gap:1rem}}
 </style>""".replace("SYSFONT", SYSTEM_SANS)
+
+SOCIAL_LINKS = [
+    ("YouTube", "https://www.youtube.com/@travelsearchpulse"),
+    ("Apple Podcasts", "https://podcasts.apple.com/us/podcast/travel-search-pulse/id6821920555"),
+    ("Spotify", "https://open.spotify.com/show/4I3zo7i1cTVd5GixqGoDfZ"),
+    ("LinkedIn", "https://www.linkedin.com/company/travelsearchpulse/"),
+    ("X", "https://x.com/travelsrchpulse"),
+    ("Instagram", "https://www.instagram.com/travelsearchpulse/"),
+    ("TikTok", "https://www.tiktok.com/@travel.search.puls"),
+    ("Threads", "https://www.threads.com/@travelsearchpulse"),
+    ("Bluesky", "https://bsky.app/profile/travelsearchpulse.bsky.social"),
+    ("Facebook", "https://www.facebook.com/travelsearchpulse/"),
+    ("Reddit", "https://www.reddit.com/r/TravelSearchPulse/"),
+]
+
+
+def render_follow():
+    """Site-wide footer linking the Travel Search Pulse accounts (brand
+    accounts only; the author's personal profiles live on
+    jessejameswoods.com). Text links, no icons, calm chrome styling."""
+    links = " ".join(
+        f'<a href="{url}" rel="me noopener" target="_blank">{name}</a>'
+        for name, url in SOCIAL_LINKS
+    )
+    return (
+        '<footer class="tsp-follow"><div class="tsp-follow-inner">'
+        '<span class="tsp-follow-label">Follow Travel Search Pulse</span>'
+        f'<nav class="tsp-follow-links">{links}</nav>'
+        '</div></footer>'
+    )
+
+
+def inject_follow(html):
+    """Append the follow footer just before </body>. Idempotent. The
+    marker is the footer element itself, not the bare class name: the
+    chrome CSS also mentions .tsp-follow, so a looser check would skip
+    the footer on every page that already carries the chrome."""
+    if 'class="tsp-follow"' in html:
+        return html
+    return html.replace("</body>", render_follow() + "\n</body>", 1)
+
 
 CHROME_HTML = """<header class="tsp-masthead"><div class="tsp-masthead-inner">
 <a class="tsp-brand" href="https://www.travelsearchpulse.com"><img src="/tsp-icon.png" alt="Travel Search Pulse" class="tsp-icon"></a>
@@ -128,7 +175,20 @@ SCHEMA_TEMPLATE = """<script type="application/ld+json">
   "publisher": {
     "@type": "Organization",
     "name": "Travel Search Pulse",
-    "url": "https://www.travelsearchpulse.com"
+    "url": "https://www.travelsearchpulse.com",
+    "sameAs": [
+      "https://www.youtube.com/@travelsearchpulse",
+      "https://podcasts.apple.com/us/podcast/travel-search-pulse/id6821920555",
+      "https://open.spotify.com/show/4I3zo7i1cTVd5GixqGoDfZ",
+      "https://www.linkedin.com/company/travelsearchpulse/",
+      "https://x.com/travelsrchpulse",
+      "https://www.instagram.com/travelsearchpulse/",
+      "https://www.tiktok.com/@travel.search.puls",
+      "https://www.threads.com/@travelsearchpulse",
+      "https://bsky.app/profile/travelsearchpulse.bsky.social",
+      "https://www.facebook.com/travelsearchpulse/",
+      "https://www.reddit.com/r/TravelSearchPulse/"
+    ]
   }
 }
 </script>"""
@@ -168,6 +228,7 @@ __INTRO__
 __ENTRIES__
 </ul>
 </div>
+__FOLLOW__
 </body>
 </html>
 """
@@ -317,6 +378,7 @@ def transform_brief(html, label, recent_html=""):
     html = inject_author_schema(html, canonical, _label_to_iso(label))
     html = inject_noindex(html)
     html = inject_chrome(html)
+    html = inject_follow(html)
     html = inject_gtag(html)
     return html
 
@@ -369,6 +431,7 @@ def render_index(briefs):
         .replace("__CHROME_HTML__", CHROME_HTML)
         .replace("__INTRO__", INTRO_HTML)
         .replace("__ENTRIES__", entries)
+        .replace("__FOLLOW__", render_follow())
     )
     return inject_gtag(html)
 
