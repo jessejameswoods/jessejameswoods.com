@@ -28,6 +28,8 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
+from social_icons import SOCIAL_ICONS
+
 DEFAULT_SOURCE = "/opt/travel-seo-pulse/travel-seo-pulse/output"
 DEFAULT_WEBROOT = "/var/www/brief"
 ICON_SOURCE = "/usr/local/share/travel-search-pulse/tsp-icon.png"
@@ -103,9 +105,11 @@ h1{font-size:clamp(1.45rem,5.5vw,2.1rem) !important;line-height:1.3 !important}
 .tsp-follow{margin-top:2.5rem;border-top:1px solid #E8E3DD;background:#FAF7F2}
 .tsp-follow-inner{max-width:1000px;margin:0 auto;padding:1.1rem 1rem 1.4rem;text-align:center}
 .tsp-follow-label{display:block;font-family:SYSFONT;font-size:.8rem;font-weight:600;color:#6B6560;letter-spacing:.02em;margin-bottom:.45rem}
-.tsp-follow-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem 1.1rem}
-.tsp-follow-links a{font-family:SYSFONT;font-size:.88rem;color:#C2532E;text-decoration:none}
-.tsp-follow-links a:hover{opacity:.8}
+.tsp-follow-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 1rem}
+.tsp-follow-links a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;color:#6B6560;text-decoration:none}
+.tsp-follow-links a:hover,.tsp-follow-links a:focus-visible{color:#C2532E;background:#F1ECE5}
+.tsp-follow-links svg{fill:currentColor;display:block}
+.tsp-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:640px){.tsp-name{font-size:1.05rem}.tsp-subscribe{font-size:.78rem;padding:.35rem .7rem}.tsp-tabs{gap:1rem}}
 </style>""".replace("SYSFONT", SYSTEM_SANS)
 
@@ -127,15 +131,21 @@ SOCIAL_LINKS = [
 def render_follow():
     """Site-wide footer linking the Travel Search Pulse accounts (brand
     accounts only; the author's personal profiles live on
-    jessejameswoods.com). Text links, no icons, calm chrome styling."""
-    links = " ".join(
-        f'<a href="{url}" rel="me noopener" target="_blank">{name}</a>'
+    jessejameswoods.com). Icon links (inline SVG, 24x24) with the account
+    name as the accessible label and a tooltip; calm chrome styling, same
+    convention as the Substack site footer."""
+    links = "".join(
+        f'<a href="{url}" rel="me noopener" target="_blank" '
+        f'aria-label="{name}" title="{name}">'
+        f'<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" '
+        f'focusable="false"><path d="{SOCIAL_ICONS[name]}"/></svg>'
+        f'<span class="tsp-sr">{name}</span></a>'
         for name, url in SOCIAL_LINKS
     )
     return (
         '<footer class="tsp-follow"><div class="tsp-follow-inner">'
         '<span class="tsp-follow-label">Follow Travel Search Pulse</span>'
-        f'<nav class="tsp-follow-links">{links}</nav>'
+        f'<nav class="tsp-follow-links" aria-label="Social accounts">{links}</nav>'
         '</div></footer>'
     )
 

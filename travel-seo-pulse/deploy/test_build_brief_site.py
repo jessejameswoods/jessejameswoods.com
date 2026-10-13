@@ -512,10 +512,23 @@ def test_render_follow_links_every_account_with_rel_attrs():
     assert "Follow Travel Search Pulse" in html
     for name, url in SOCIAL_LINKS:
         assert f'href="{url}"' in html
-        assert f">{name}</a>" in html
+        assert f'aria-label="{name}"' in html
+        assert f'<span class="tsp-sr">{name}</span></a>' in html
     assert html.count('rel="me noopener"') == len(SOCIAL_LINKS)
     assert html.count('target="_blank"') == len(SOCIAL_LINKS)
     assert "\u2014" not in html and "\u2013" not in html
+
+
+def test_render_follow_uses_an_inline_icon_per_account():
+    from social_icons import SOCIAL_ICONS
+    html = render_follow()
+    assert html.count("<svg ") == len(SOCIAL_LINKS)
+    assert html.count('aria-hidden="true"') == len(SOCIAL_LINKS)
+    for name, _ in SOCIAL_LINKS:
+        assert name in SOCIAL_ICONS and SOCIAL_ICONS[name].startswith("M")
+        assert f'<path d="{SOCIAL_ICONS[name]}"/>' in html
+    # no external icon requests: every icon is inline
+    assert "cdn.simpleicons" not in html and "<img" not in html
 
 
 def test_inject_follow_goes_before_body_close_and_is_idempotent():
